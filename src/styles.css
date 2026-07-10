@@ -38,9 +38,9 @@
   --color-ink: var(--ink);
   --color-cream: var(--cream);
 
-  --font-serif: "Cormorant Garamond", "Playfair Display", serif;
-  --font-script: "Great Vibes", "Allura", cursive;
-  --font-sans: "Jost", "Inter", sans-serif;
+  --font-serif: "Playfair Display", "Georgia", serif;
+  --font-script: "Pinyon Script", "Great Vibes", cursive;
+  --font-sans: "Montserrat", "Inter", sans-serif;
   --font-arabic: "Amiri", serif;
 
   --shadow-luxury: 0 30px 80px -20px oklch(0.55 0.08 60 / 0.18);
@@ -144,10 +144,21 @@
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
+@keyframes ken-burns {
+  0%, 100% { transform: scale(1.02) translate(0px, 0px); }
+  50% { transform: scale(1.10) translate(-10px, -5px); }
+}
 
 @utility animate-float-slow {
   animation: float-slow 8s ease-in-out infinite;
 }
 @utility animate-fall {
   animation: fall linear infinite;
+}
+@utility animate-ken-burns {
+  animation: ken-burns 22s ease-in-out infinite;
+}
+@utility safe-top {
+  padding-top: max(0.375rem, env(safe-area-inset-top));
+  height: calc(2.5rem + env(safe-area-inset-top));
 }

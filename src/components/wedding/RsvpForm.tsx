@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { Reveal } from "./Reveal";
+import { User, Phone, Users, MessageSquare } from "lucide-react";
 
 export function RsvpForm() {
   const [attending, setAttending] = useState<"yes" | "no">("yes");
@@ -27,9 +28,10 @@ export function RsvpForm() {
 
   if (submitted) {
     return (
-      <Reveal className="glass mx-auto max-w-xl rounded-3xl p-10 text-center">
-        <div className="font-script text-5xl text-gold">Thank you</div>
-        <p className="mt-4 text-sm text-muted-foreground">
+      <Reveal className="relative mx-auto max-w-sm overflow-hidden rounded-3xl border border-gold/15 bg-white/60 p-10 text-center backdrop-blur-md shadow-luxury">
+        <div className="absolute inset-3 pointer-events-none rounded-[1.25rem] border border-gold/10" />
+        <div className="font-script text-5xl text-gold-gradient py-1">Thank you</div>
+        <p className="mt-4 text-xs text-muted-foreground leading-relaxed">
           Your response has been recorded. We look forward to sharing this blessed day with you.
         </p>
       </Reveal>
@@ -37,46 +39,64 @@ export function RsvpForm() {
   }
 
   return (
-    <form onSubmit={submit} className="glass mx-auto grid max-w-2xl gap-5 rounded-3xl p-6 sm:p-10">
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Name" name="name" required />
-        <Field label="Phone" name="phone" type="tel" required />
-      </div>
-      <Field label="Number of Guests" name="guests" type="number" defaultValue="1" min="1" />
-      <div>
-        <label className="mb-2 block text-[10px] tracking-luxury text-muted-foreground uppercase">
-          Message
-        </label>
-        <textarea
-          name="message"
-          rows={3}
-          className="w-full resize-none rounded-xl border border-border bg-white/60 px-4 py-3 text-sm text-ink outline-none focus:border-gold"
-        />
-      </div>
-      <div>
-        <div className="mb-3 text-[10px] tracking-luxury text-muted-foreground uppercase">
-          Will you attend?
+    <form onSubmit={submit} className="relative mx-auto grid max-w-sm gap-6 rounded-3xl border border-gold/15 bg-white/60 p-8 text-center backdrop-blur-md shadow-luxury">
+      {/* Delicate inner decorative border */}
+      <div className="absolute inset-3 pointer-events-none rounded-[1.25rem] border border-gold/10" />
+      
+      {/* Subtle gold corner accent ornaments */}
+      <div className="absolute top-4 left-4 h-3 w-3 border-t border-l border-gold/30" />
+      <div className="absolute top-4 right-4 h-3 w-3 border-t border-r border-gold/30" />
+      <div className="absolute bottom-4 left-4 h-3 w-3 border-b border-l border-gold/30" />
+      <div className="absolute bottom-4 right-4 h-3 w-3 border-b border-r border-gold/30" />
+
+      <div className="relative z-10 grid gap-6 text-left">
+        <Field label="Name" name="name" icon={<User size={13} />} required />
+        <Field label="Phone" name="phone" type="tel" icon={<Phone size={13} />} required />
+        <Field label="Number of Guests" name="guests" type="number" defaultValue="1" min="1" icon={<Users size={13} />} />
+        
+        <div>
+          <label className="mb-2 block text-[10px] tracking-luxury text-gold uppercase font-medium">
+            Message
+          </label>
+          <div className="relative flex items-center">
+            <span className="absolute left-0 text-gold/60 pb-1">
+              <MessageSquare size={13} />
+            </span>
+            <textarea
+              name="message"
+              rows={3}
+              placeholder="Leave a message..."
+              className="w-full resize-none border-b border-gold/20 bg-transparent pl-6 pr-1 py-1 text-sm text-ink outline-none transition-all duration-300 focus:border-gold focus:bg-gold/[0.02]"
+            />
+          </div>
         </div>
-        <div className="grid grid-cols-2 gap-3">
-          {(["yes", "no"] as const).map((v) => (
-            <button
-              type="button"
-              key={v}
-              onClick={() => setAttending(v)}
-              className={`rounded-xl border px-4 py-3 text-sm font-medium tracking-wide transition ${
-                attending === v
-                  ? "border-gold bg-gold/10 text-gold"
-                  : "border-border bg-white/50 text-muted-foreground hover:border-gold/50"
-              }`}
-            >
-              {v === "yes" ? "Joyfully Attending" : "Regretfully Declining"}
-            </button>
-          ))}
+        
+        <div>
+          <div className="mb-4 text-[10px] tracking-luxury text-gold uppercase font-medium">
+            Will you attend?
+          </div>
+          <div className="grid grid-cols-2 gap-3.5">
+            {(["yes", "no"] as const).map((v) => (
+              <button
+                type="button"
+                key={v}
+                onClick={() => setAttending(v)}
+                className={`rounded-full border px-3 py-3 text-[9px] font-semibold tracking-luxury uppercase transition duration-300 ${
+                  attending === v
+                    ? "border-gold bg-gold/10 text-gold shadow-sm"
+                    : "border-gold/20 bg-white/20 text-muted-foreground hover:border-gold/45 hover:text-gold"
+                }`}
+              >
+                {v === "yes" ? "Joyfully Attend" : "Decline"}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
+      
       <button
         type="submit"
-        className="mt-2 overflow-hidden rounded-full bg-gradient-to-r from-gold via-gold-soft to-gold px-8 py-4 text-xs font-medium tracking-luxury text-white uppercase shadow-luxury transition hover:shadow-[0_20px_60px_-10px_oklch(0.62_0.11_70/0.5)]"
+        className="relative z-10 mt-2 overflow-hidden rounded-full bg-gradient-to-r from-gold to-gold-soft px-8 py-4 text-xs font-semibold tracking-luxury text-white uppercase shadow-soft transition-all duration-300 hover:shadow-luxury hover:-translate-y-0.5"
       >
         Send Blessing
       </button>
@@ -88,23 +108,30 @@ function Field({
   label,
   name,
   type = "text",
+  icon,
   ...rest
 }: {
   label: string;
   name: string;
   type?: string;
+  icon: React.ReactNode;
 } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div>
-      <label className="mb-2 block text-[10px] tracking-luxury text-muted-foreground uppercase">
+      <label className="mb-2 block text-[10px] tracking-luxury text-gold uppercase font-medium">
         {label}
       </label>
-      <input
-        name={name}
-        type={type}
-        className="w-full rounded-xl border border-border bg-white/60 px-4 py-3 text-sm text-ink outline-none focus:border-gold"
-        {...rest}
-      />
+      <div className="relative flex items-center">
+        <span className="absolute left-0 text-gold/60 pb-1">
+          {icon}
+        </span>
+        <input
+          name={name}
+          type={type}
+          className="w-full border-b border-gold/20 bg-transparent pl-6 pr-1 py-1 text-sm text-ink outline-none transition-all duration-300 focus:border-gold focus:bg-gold/[0.02]"
+          {...rest}
+        />
+      </div>
     </div>
   );
 }
