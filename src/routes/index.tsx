@@ -348,18 +348,18 @@ function Hero({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
         className="pointer-events-none absolute -right-16 -bottom-16 w-[55vw] max-w-[600px] sm:w-[38vw]"
       />
 
-      <motion.div style={{ opacity }} className="relative z-10 px-6 text-center">
+      <motion.div style={{ opacity }} className="relative z-10 px-6 text-center mt-[-2vh]">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.8, duration: 1.2 }}
-          className="font-arabic text-2xl text-ink/80 sm:text-3xl"
+          className="font-arabic text-2xl text-ink/80 sm:text-3xl mb-2"
           dir="rtl"
         >
           بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
         </motion.p>
 
-        <Ornament className="mt-8" />
+        <Ornament className="mt-2" />
 
         <motion.p
           initial={{ opacity: 0 }}
@@ -370,7 +370,7 @@ function Hero({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
           The Wedding of
         </motion.p>
 
-        <h1 className="font-script mt-2 text-8xl leading-[1.1] py-3 text-gold-gradient sm:text-[10rem] md:text-[12rem] lg:text-[14rem] overflow-hidden flex justify-center flex-wrap">
+        <h1 className="font-script mt-2 text-6xl leading-[1.2] py-2 text-gold-gradient sm:text-8xl md:text-9xl overflow-hidden flex justify-center flex-wrap">
           {"Suhana".split("").map((char, index) => (
             <motion.span
               key={index}
@@ -392,12 +392,12 @@ function Hero({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 3.2, duration: 0.8 }}
-          className="my-1 font-serif-display text-2xl font-light text-ink/70 italic sm:text-3xl"
+          className="my-1 font-serif-display text-xl font-light text-ink/70 italic sm:text-2xl"
         >
           &amp;
         </motion.div>
 
-        <h1 className="font-script text-8xl leading-[1.1] py-3 text-gold-gradient sm:text-[10rem] md:text-[12rem] lg:text-[14rem] overflow-hidden flex justify-center flex-wrap">
+        <h1 className="font-script text-6xl leading-[1.2] py-2 text-gold-gradient sm:text-8xl md:text-9xl overflow-hidden flex justify-center flex-wrap">
           {"Midlaj".split("").map((char, index) => (
             <motion.span
               key={index}
