@@ -348,89 +348,88 @@ function Hero({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
         className="pointer-events-none absolute -right-16 -bottom-16 w-[55vw] max-w-[600px] sm:w-[38vw]"
       />
 
-      <motion.div style={{ opacity }} className="relative z-10 px-6 text-center mt-[-2vh]">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.8, duration: 1.2 }}
-          className="font-arabic text-2xl text-ink/80 sm:text-3xl mb-2"
-          dir="rtl"
-        >
-          بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
-        </motion.p>
+      <motion.div style={{ opacity }} className="relative z-10 px-6 text-center mt-[-2vh] w-full max-w-md mx-auto">
+        <div className="relative overflow-hidden rounded-3xl border border-gold/15 bg-white/40 p-8 text-center backdrop-blur-sm shadow-luxury">
+          {/* Subtle gold corner accent ornaments */}
+          <div className="absolute top-4 left-4 h-3 w-3 border-t border-l border-gold/30" />
+          <div className="absolute top-4 right-4 h-3 w-3 border-t border-r border-gold/30" />
+          <div className="absolute bottom-4 left-4 h-3 w-3 border-b border-l border-gold/30" />
+          <div className="absolute bottom-4 right-4 h-3 w-3 border-b border-r border-gold/30" />
 
-        <Ornament className="mt-2" />
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2.4, duration: 1 }}
-          className="mt-10 text-[10px] tracking-luxury text-muted-foreground uppercase sm:text-xs"
-        >
-          The Wedding of
-        </motion.p>
-
-        <h1 className="font-script mt-2 text-6xl leading-[1.2] py-2 text-gold-gradient sm:text-8xl md:text-9xl overflow-hidden flex justify-center flex-wrap">
-          {"Suhana".split("").map((char, index) => (
-            <motion.span
-              key={index}
-              initial={{ y: "100%", opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{
-                delay: 2.5 + index * 0.08,
-                duration: 0.8,
-                ease: [0.215, 0.61, 0.355, 1],
-              }}
-              className="inline-block"
-            >
-              {char}
-            </motion.span>
-          ))}
-        </h1>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 3.2, duration: 0.8 }}
-          className="my-1 font-serif-display text-xl font-light text-ink/70 italic sm:text-2xl"
-        >
-          &amp;
-        </motion.div>
-
-        <h1 className="font-script text-6xl leading-[1.2] py-2 text-gold-gradient sm:text-8xl md:text-9xl overflow-hidden flex justify-center flex-wrap">
-          {"Midlaj".split("").map((char, index) => (
-            <motion.span
-              key={index}
-              initial={{ y: "100%", opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{
-                delay: 3.3 + index * 0.08,
-                duration: 0.8,
-                ease: [0.215, 0.61, 0.355, 1],
-              }}
-              className="inline-block"
-            >
-              {char}
-            </motion.span>
-          ))}
-        </h1>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 3.8, duration: 1 }}
-          className="mt-10"
-        >
-          <div className="mx-auto inline-flex items-center gap-4 rounded-full border border-gold/30 bg-white/40 px-6 py-3 backdrop-blur-md">
-            <Calendar size={14} className="text-gold" />
-            <span className="font-serif-display text-sm tracking-[0.25em] text-ink uppercase sm:text-base">
-              09 · 08 · 2026
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2.4, duration: 1 }}
+            className="mb-4 inline-block mx-auto"
+          >
+            <span className="rounded-md border border-gold/15 bg-white/20 px-4 py-1 text-[8px] font-semibold tracking-[0.3em] text-gold uppercase backdrop-blur-sm">
+              Nikah
             </span>
-          </div>
-        </motion.div>
+          </motion.div>
+
+          <h1 className="font-serif-display text-4xl leading-[1.2] font-normal tracking-wide text-ink overflow-hidden flex justify-center flex-wrap uppercase">
+            {"Suhana".split("").map((char, index) => (
+              <motion.span
+                key={index}
+                initial={{ y: "100%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{
+                  delay: 2.5 + index * 0.08,
+                  duration: 0.8,
+                  ease: [0.215, 0.61, 0.355, 1],
+                }}
+                className="inline-block"
+              >
+                {char}
+              </motion.span>
+            ))}
+          </h1>
+          <p className="text-[9px] tracking-widest text-muted-foreground uppercase mt-1.5 font-sans italic">
+            D/o Mr. N. P. Shuhaib &amp; Mrs. K. V. Asmabi
+          </p>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 3.2, duration: 0.8 }}
+            className="my-3 font-serif-display text-xl font-light text-gold/80 italic"
+          >
+            &amp;
+          </motion.div>
+
+          <h1 className="font-serif-display text-4xl leading-[1.2] font-normal tracking-wide text-ink overflow-hidden flex justify-center flex-wrap uppercase">
+            {"Midlaj".split("").map((char, index) => (
+              <motion.span
+                key={index}
+                initial={{ y: "100%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{
+                  delay: 3.3 + index * 0.08,
+                  duration: 0.8,
+                  ease: [0.215, 0.61, 0.355, 1],
+                }}
+                className="inline-block"
+              >
+                {char}
+              </motion.span>
+            ))}
+          </h1>
+          <p className="text-[9px] tracking-widest text-muted-foreground uppercase mt-1.5 font-sans italic">
+            S/o Mr. V. Imbichi Mammu &amp; Mrs. Fousiya PM
+          </p>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 3.6, duration: 1 }}
+            className="mt-6 text-[10px] tracking-[0.2em] font-medium text-gold uppercase"
+          >
+            Sunday, August 9, 2026
+          </motion.p>
+        </div>
 
         {!opened && (
-          <div className="mt-12 flex flex-col items-center justify-center relative select-none">
+          <div className="mt-8 flex flex-col items-center justify-center relative select-none">
             <span className="rounded-full border border-gold/30 bg-white/40 px-5 py-2 text-[9px] font-semibold tracking-[0.3em] text-gold uppercase backdrop-blur-sm">
               Pull down to Open
             </span>
