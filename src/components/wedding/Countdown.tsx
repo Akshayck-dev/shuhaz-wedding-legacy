@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const target = new Date("2026-08-09T12:00:00+05:30").getTime();
+const target = new Date("2026-07-26T12:30:00+05:30").getTime();
 
 function diff() {
   const d = Math.max(0, target - Date.now());
@@ -21,20 +21,20 @@ export function Countdown() {
   }, []);
 
   const items = [
-    { label: "Days", value: t.days },
-    { label: "Hours", value: t.hours },
-    { label: "Minutes", value: t.minutes },
-    { label: "Seconds", value: t.seconds },
+    { label: "DAYS", value: t.days },
+    { label: "HRS", value: t.hours },
+    { label: "MIN", value: t.minutes },
+    { label: "SEC", value: t.seconds },
   ];
 
   return (
-    <div className="grid grid-cols-4 gap-3 sm:gap-6">
+    <div className="flex justify-center gap-2 sm:gap-4">
       {items.map((it) => (
-        <div key={it.label} className="glass rounded-2xl px-2 py-5 text-center sm:px-6 sm:py-8">
-          <div className="font-serif-display text-3xl font-light text-ink tabular-nums sm:text-6xl">
+        <div key={it.label} className="flex flex-col items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border border-gold/40 bg-black/5 backdrop-blur-sm shadow-sm">
+          <div className="font-serif-display text-2xl font-normal text-gold tabular-nums sm:text-3xl leading-none">
             {String(it.value).padStart(2, "0")}
           </div>
-          <div className="mt-2 text-[9px] tracking-luxury text-muted-foreground uppercase sm:text-xs">
+          <div className="mt-1 text-[7px] tracking-widest text-gold/70 uppercase sm:text-[9px]">
             {it.label}
           </div>
         </div>

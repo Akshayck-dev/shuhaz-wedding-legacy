@@ -319,7 +319,7 @@ function Hero({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
   const opacity = useTransform(scrollY, [0, 500], [1, 0]);
 
   return (
-    <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden">
+    <section className="relative flex min-h-[100svh] items-start justify-center pt-[12vh] overflow-hidden">
       {/* Background with Cinematic Ken Burns scale pan */}
       <div className="absolute inset-0 overflow-hidden">
         <img src={heroBg} alt="" className="h-full w-full object-cover animate-ken-burns" />
@@ -348,21 +348,15 @@ function Hero({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
         className="pointer-events-none absolute -right-16 -bottom-16 w-[55vw] max-w-[600px] sm:w-[38vw]"
       />
 
-      <motion.div style={{ opacity }} className="relative z-10 px-6 text-center mt-[-2vh] w-full max-w-md mx-auto">
-        <div className="relative overflow-hidden rounded-3xl border border-gold/15 bg-white/40 p-8 text-center backdrop-blur-sm shadow-luxury">
-          {/* Subtle gold corner accent ornaments */}
-          <div className="absolute top-4 left-4 h-3 w-3 border-t border-l border-gold/30" />
-          <div className="absolute top-4 right-4 h-3 w-3 border-t border-r border-gold/30" />
-          <div className="absolute bottom-4 left-4 h-3 w-3 border-b border-l border-gold/30" />
-          <div className="absolute bottom-4 right-4 h-3 w-3 border-b border-r border-gold/30" />
-
+      <motion.div style={{ opacity }} className="relative z-10 px-6 text-center w-full max-w-sm mx-auto">
+        <div className="relative overflow-hidden rounded-[2rem] bg-[#FDFBF7]/85 p-8 pb-10 text-center backdrop-blur-md">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 2.4, duration: 1 }}
-            className="mb-4 inline-block mx-auto"
+            className="mb-6 inline-block mx-auto"
           >
-            <span className="rounded-md border border-gold/15 bg-white/20 px-4 py-1 text-[8px] font-semibold tracking-[0.3em] text-gold uppercase backdrop-blur-sm">
+            <span className="rounded-sm border border-gold/20 px-4 py-1.5 text-[8px] font-semibold tracking-[0.3em] text-ink/70 uppercase">
               Nikah
             </span>
           </motion.div>
@@ -609,16 +603,56 @@ function Invitation() {
 /* ---------------- Countdown ---------------- */
 function CountdownSection() {
   return (
-    <Section id="countdown" className="bg-gradient-to-b from-transparent via-white/40 to-transparent">
-      <Reveal className="text-center">
-        <SectionLabel>Counting the Moments</SectionLabel>
-        <h3 className="mt-4 font-serif-display text-3xl font-light text-ink sm:text-5xl">
-          Until we celebrate
-        </h3>
+    <Section id="countdown" className="bg-[#FDFBF7] min-h-screen flex flex-col items-center justify-center pt-20 pb-20 relative overflow-hidden">
+      <Reveal className="text-center w-full z-10">
+        <Ornament className="mb-4 rotate-180" />
+        <SectionLabel>Counting Down</SectionLabel>
+        
+        <div className="mt-8">
+          <Countdown />
+        </div>
+
+        <Ornament className="mt-12" />
+
+        <div className="mt-12">
+          <SectionLabel>We Welcome You</SectionLabel>
+          <div className="text-gold/20 mt-4">
+            <svg className="w-10 h-10 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+            </svg>
+          </div>
+          <p className="font-serif italic text-ink/90 text-[15px] sm:text-lg leading-loose max-w-md mx-auto mt-4 px-6 text-center">
+            You have played a beautiful part in our love story. Now we invite you to be there as we write the most important chapter yet.
+          </p>
+        </div>
+
+        <Ornament className="mt-12" />
+
+        <div className="mt-12">
+          <SectionLabel>With the blessings of our families</SectionLabel>
+          
+          <div className="mt-8 text-center">
+            <h4 className="font-serif-display text-xl sm:text-2xl text-ink uppercase tracking-wide">HENA SANBAQ SALEEM</h4>
+            <p className="font-serif italic text-[11px] sm:text-xs text-muted-foreground mt-2">Abdul Saleem kz / Haseena saleem</p>
+          </div>
+          
+          <div className="my-8 text-center flex flex-col items-center">
+            <span className="text-[8px] font-bold tracking-[0.3em] text-gold uppercase mb-2">SCROLL</span>
+            <div className="flex flex-col gap-0.5 text-gold/60">
+              <svg className="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+              <svg className="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <h4 className="font-serif-display text-xl sm:text-2xl text-ink uppercase tracking-wide">AMAL BIN ISMAYIL</h4>
+            <p className="font-serif italic text-[11px] sm:text-xs text-muted-foreground mt-2">Ismayil p / Thasni kt</p>
+          </div>
+        </div>
       </Reveal>
-      <Reveal delay={0.15} className="mt-12">
-        <Countdown />
-      </Reveal>
+      
+      {/* Background floral hints */}
+      <FloatingPetals count={10} />
     </Section>
   );
 }
@@ -626,128 +660,122 @@ function CountdownSection() {
 /* ---------------- Event ---------------- */
 function EventSection() {
   return (
-    <Section id="event">
-      <Reveal className="text-center">
-        <SectionLabel>The Celebration</SectionLabel>
-        <h3 className="mt-4 font-serif-display text-3xl font-light text-ink sm:text-5xl">
-          Save the Date
-        </h3>
-      </Reveal>
-      
-      <Reveal delay={0.1} className="mt-12">
-        <div className="relative mx-auto max-w-sm overflow-hidden rounded-3xl border border-gold/15 bg-white/60 p-8 text-center backdrop-blur-md shadow-luxury">
-          {/* Delicate inner decorative border */}
-          <div className="absolute inset-3 pointer-events-none rounded-[1.25rem] border border-gold/10" />
-          
-          {/* Subtle gold corner accent ornaments */}
-          <div className="absolute top-4 left-4 h-3 w-3 border-t border-l border-gold/30" />
-          <div className="absolute top-4 right-4 h-3 w-3 border-t border-r border-gold/30" />
-          <div className="absolute bottom-4 left-4 h-3 w-3 border-b border-l border-gold/30" />
-          <div className="absolute bottom-4 right-4 h-3 w-3 border-b border-r border-gold/30" />
+    <section className="relative flex min-h-[100svh] items-start justify-center pt-[12vh] overflow-hidden" id="event">
+      <div className="absolute inset-0 overflow-hidden">
+        <img src={heroBg} alt="" className="h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#FDFBF7]/60 via-[#FDFBF7]/40 to-[#FDFBF7]" />
+      </div>
 
-          {/* Month Header Badge */}
-          <div className="mx-auto inline-block rounded-full bg-gold/10 px-4 py-1 text-[10px] font-semibold tracking-[0.25em] text-gold uppercase mb-5">
-            July 2026
-          </div>
-          
-          {/* Big Calendar Date Number */}
-          <div className="font-serif-display text-7xl font-light text-ink leading-none tracking-tighter select-none">
-            26
-          </div>
-          
-          {/* Day of the Week with side ornaments */}
-          <div className="flex items-center justify-center gap-3 my-4">
-            <span className="h-[1px] w-8 bg-gold/25" />
-            <span className="font-serif-display text-lg text-ink font-light tracking-widest uppercase">Sunday</span>
-            <span className="h-[1px] w-8 bg-gold/25" />
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="relative z-10 px-6 text-center w-full max-w-sm mx-auto">
+        <div className="relative overflow-hidden rounded-[2rem] bg-[#FDFBF7]/85 p-8 pb-10 text-center backdrop-blur-md">
+          <div className="mb-6 inline-block mx-auto">
+            <span className="rounded-sm border border-gold/20 px-4 py-1.5 text-[8px] font-semibold tracking-[0.3em] text-ink/70 uppercase">
+              Nikah
+            </span>
           </div>
 
-          {/* Time and details info */}
-          <div className="mt-6 flex flex-col items-center justify-center gap-1.5 text-xs text-muted-foreground">
-            <div className="flex items-center gap-1.5 font-medium text-ink/80">
-              <Clock size={13} className="text-gold" />
-              12:30 PM
-            </div>
-            <div className="tracking-wide text-[10px] text-muted-foreground uppercase mt-0.5">
-              Wedding Reception
-            </div>
+          <div className="flex justify-center mb-8">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="9" cy="12" r="5" stroke="#BA9554" strokeWidth="0.8"/>
+              <circle cx="15" cy="12" r="5" stroke="#BA9554" strokeWidth="0.8"/>
+              <path d="M12 7L13 5L15 6.5L12 7Z" fill="#BA9554" opacity="0.8"/>
+            </svg>
           </div>
           
-          {/* Calendar Sync Action */}
-          <div className="mt-8 relative z-10">
+          <h4 className="font-serif-display text-xl text-ink uppercase tracking-wide">
+            Sunday, July 26, 2026
+          </h4>
+          <h3 className="font-serif-display text-2xl text-gold mt-1">
+            12:30 PM
+          </h3>
+
+          <Ornament className="my-6 scale-75" />
+
+          <p className="text-[8px] font-bold tracking-[0.3em] text-ink/70 uppercase mb-2">
+            Venue
+          </p>
+          <h4 className="font-serif-display text-[15px] sm:text-lg text-ink font-bold uppercase tracking-wide">
+            Gokulam Grand Kozhikode
+          </h4>
+          <p className="text-[7px] sm:text-[9px] tracking-widest text-muted-foreground uppercase mt-2 leading-relaxed max-w-[200px] mx-auto">
+            Mavoor Rd, Arayidathupalam, Kozhikode, Kerala 673004
+          </p>
+          
+          <div className="mt-8">
             <a
               href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Hena+%26+Amal+Wedding&dates=20260726T070000Z/20260726T090000Z&details=The+family+invites+you+to+the+wedding+of+Hena+Sanbaq+Saleem+%26+Amal+Bin+Ismayil+at+Gokulam+Grand+Kozhikode.&location=Gokulam+Grand,+Mavoor+Rd,+Kozhikode,+Kerala"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold to-gold-soft px-6 py-3 text-[10px] font-semibold tracking-luxury text-white uppercase shadow-soft hover:shadow-luxury transition-all duration-300 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-white/50 px-6 py-2.5 text-[9px] font-semibold tracking-widest text-ink uppercase shadow-sm hover:bg-gold hover:text-white transition-all duration-300"
             >
-              <Calendar size={12} className="-mt-0.5" /> Add to Calendar
+              <Navigation size={10} className="-mt-0.5" /> Directions
             </a>
           </div>
         </div>
-      </Reveal>
-    </Section>
+      </motion.div>
+    </section>
   );
 }
 
 /* ---------------- Venue ---------------- */
 function VenueSection() {
   return (
-    <Section id="venue">
-      <Reveal className="text-center">
-        <SectionLabel>Location</SectionLabel>
-        <h3 className="mt-4 font-serif-display text-3xl font-light text-ink sm:text-5xl">
-          The Venue
+    <Section id="venue" className="bg-[#FDFBF7]">
+      <Reveal className="text-center w-full">
+        <SectionLabel>FIND US</SectionLabel>
+        <h3 className="mt-4 font-serif-display text-2xl font-light text-ink uppercase tracking-wide">
+          Gokulam Grand Kozhikode
         </h3>
+        <p className="text-[8px] tracking-[0.2em] text-muted-foreground uppercase mt-3">
+          Mavoor Rd, Arayidathupalam, Kozhikode, Kerala 673004
+        </p>
       </Reveal>
 
-      <Reveal delay={0.15} className="mt-10">
-        <div className="relative mx-auto max-w-sm overflow-hidden rounded-3xl border border-gold/15 bg-white/60 p-8 text-center backdrop-blur-md shadow-luxury">
-          {/* Delicate inner decorative border */}
-          <div className="absolute inset-3 pointer-events-none rounded-[1.25rem] border border-gold/10" />
-          
-          {/* Subtle gold corner accent ornaments */}
-          <div className="absolute top-4 left-4 h-3 w-3 border-t border-l border-gold/30" />
-          <div className="absolute top-4 right-4 h-3 w-3 border-t border-r border-gold/30" />
-          <div className="absolute bottom-4 left-4 h-3 w-3 border-b border-l border-gold/30" />
-          <div className="absolute bottom-4 right-4 h-3 w-3 border-b border-r border-gold/30" />
-
-          {/* Location pin badge icon */}
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gold/10 text-gold mb-5">
-            <MapPin size={20} />
+      <Reveal delay={0.15} className="mt-8">
+        <div className="relative mx-auto max-w-sm rounded-[1.5rem] bg-[#EBE7DF] overflow-hidden shadow-sm h-64 border border-gold/10">
+          {/* Mock stylized map graphics */}
+          <div className="absolute top-4 left-4 right-4 h-12 flex gap-4">
+            <div className="w-1/3 bg-[#DCD8CD] rounded-lg"></div>
+            <div className="w-2/3 flex flex-col gap-2">
+              <div className="w-full h-4 bg-[#F5F2EB] rounded-full"></div>
+              <div className="w-2/3 h-4 bg-[#F5F2EB] rounded-full"></div>
+            </div>
           </div>
+          <div className="absolute top-20 left-0 right-0 h-4 bg-[#F5F2EB]"></div>
+          <div className="absolute top-28 left-1/3 w-4 h-full bg-[#F5F2EB]"></div>
           
-          <h4 className="font-script text-4xl leading-tight text-gold-gradient mb-2 py-1">
-            Gokulam Grand Kozhikode
-          </h4>
-          
-          <p className="text-xs tracking-widest text-ink font-semibold uppercase mb-1">
-            Mavoor Rd, Kozhikode
-          </p>
-          <p className="text-[11px] text-muted-foreground max-w-xs mx-auto leading-relaxed mb-8">
-            Mavoor Rd, Arayidathupalam, Kozhikode, Kerala 673004
-          </p>
+          <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+             <div className="w-10 h-10 rounded-full border-2 border-gold/40 absolute scale-150"></div>
+             <div className="w-8 h-8 rounded-full bg-gold/90 text-white flex items-center justify-center shadow-lg">
+                <MapPin size={16} />
+             </div>
+          </div>
 
-          <div className="flex flex-col gap-3 relative z-10">
-            <a
+          <div className="absolute bottom-4 left-4 right-4 bg-white p-4 rounded-xl shadow-luxury flex items-center justify-between border border-gold/10">
+             <div>
+               <h4 className="font-bold text-[11px] text-ink">Gokulam Grand Kozhikode</h4>
+               <p className="text-[8px] text-muted-foreground mt-1 line-clamp-1">Mavoor Rd, Arayidathupalam, Kozhikode</p>
+             </div>
+             <a
               href={MAP_URL}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-gold/35 bg-white/30 px-6 py-3 text-[10px] font-semibold tracking-luxury text-gold uppercase transition hover:bg-gold/10"
-            >
-              Open Map
-            </a>
-            <a
-              href={MAP_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-gold to-gold-soft px-6 py-3 text-[10px] font-semibold tracking-luxury text-white uppercase shadow-soft hover:shadow-luxury transition-all duration-300 hover:-translate-y-0.5"
-            >
-              <Navigation size={11} className="-mt-0.5" /> Navigate
-            </a>
+              className="bg-[#B98F45] text-white px-4 py-2 rounded-lg text-[9px] font-bold tracking-wider hover:bg-[#A37B3B] transition"
+             >
+               Directions &rarr;
+             </a>
           </div>
         </div>
       </Reveal>
+
+      <div className="mt-20 text-center">
+        <Ornament className="rotate-180 mb-6" />
+        <p className="text-[10px] italic text-muted-foreground font-serif">Want a beautiful invitation like this one?</p>
+        <button className="mt-4 bg-[#B98F45] text-white px-6 py-3 rounded-full text-[10px] font-bold tracking-widest hover:bg-[#A37B3B] transition shadow-md">
+          + CREATE YOURS
+        </button>
+        <Ornament className="mt-6" />
+      </div>
     </Section>
   );
 }

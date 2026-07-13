@@ -52,12 +52,12 @@
   --radius: 0.5rem;
 
   --cream: oklch(0.975 0.012 85);
-  --background: oklch(0.975 0.012 85);
-  --foreground: oklch(0.28 0.03 60);
-  --ink: oklch(0.22 0.02 60);
+  --background: oklch(0.985 0.01 80); /* Soft light beige #FDFBF7-ish */
+  --foreground: oklch(0.25 0.03 50); /* Dark brown-ink */
+  --ink: oklch(0.20 0.02 50);
 
-  --gold: oklch(0.62 0.11 70);
-  --gold-soft: oklch(0.78 0.08 78);
+  --gold: oklch(0.65 0.13 65); /* Richer gold */
+  --gold-soft: oklch(0.80 0.09 75);
   --rose: oklch(0.45 0.08 350);
   --sage: oklch(0.48 0.05 145);
 
