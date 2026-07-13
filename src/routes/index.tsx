@@ -31,8 +31,8 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Suhana & Midlaj — Wedding · 9 August 2026" },
-      { name: "description", content: "The Shasa Family invites you to the wedding of Dr. Suhana Suaibu & Mohammed Midlaj." },
+      { title: "Hena & Amal — Wedding · 26 July 2026" },
+      { name: "description", content: "The family invites you to the wedding of Hena Sanbaq Saleem & Amal Bin Ismayil." },
     ],
   }),
 });
@@ -134,7 +134,7 @@ function Index() {
               onClick={() => scrollToSection("invitation")}
               className="font-script text-2xl text-gold-gradient tracking-wider pt-1 select-none cursor-pointer"
             >
-              S &amp; M
+              H &amp; A
             </div>
             
             {/* Decorative luxury menu lines */}
@@ -218,7 +218,7 @@ function Index() {
               </button>
 
               <Ornament className="mt-2" />
-              <span className="font-script text-xl text-gold-gradient tracking-wide mt-2">Suhana &amp; Midlaj</span>
+              <span className="font-script text-xl text-gold-gradient tracking-wide mt-2">Hena &amp; Amal</span>
             </div>
           </motion.div>
         )}
@@ -296,7 +296,7 @@ function Loader() {
           transition={{ delay: 0.6, duration: 0.8 }}
           className="mt-6 font-script text-4xl text-gold-gradient"
         >
-          Suhana & Midlaj
+          Hena & Amal
         </motion.div>
         <motion.div
           initial={{ opacity: 0 }}
@@ -368,7 +368,7 @@ function Hero({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
           </motion.div>
 
           <h1 className="font-serif-display text-4xl leading-[1.2] font-normal tracking-wide text-ink overflow-hidden flex justify-center flex-wrap uppercase">
-            {"Suhana".split("").map((char, index) => (
+            {"HENA SANBAQ SALEEM".split("").map((char, index) => (
               <motion.span
                 key={index}
                 initial={{ y: "100%", opacity: 0 }}
@@ -380,12 +380,12 @@ function Hero({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
                 }}
                 className="inline-block"
               >
-                {char}
+                {char === " " ? "\u00A0" : char}
               </motion.span>
             ))}
           </h1>
-          <p className="text-[9px] tracking-widest text-muted-foreground uppercase mt-1.5 font-sans italic">
-            D/o Mr. N. P. Shuhaib &amp; Mrs. K. V. Asmabi
+          <p className="text-[9px] tracking-widest text-muted-foreground mt-1.5 font-serif italic">
+            Abdul Saleem kz / Haseena saleem
           </p>
 
           <motion.div
@@ -398,7 +398,7 @@ function Hero({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
           </motion.div>
 
           <h1 className="font-serif-display text-4xl leading-[1.2] font-normal tracking-wide text-ink overflow-hidden flex justify-center flex-wrap uppercase">
-            {"Midlaj".split("").map((char, index) => (
+            {"AMAL BIN ISMAYIL".split("").map((char, index) => (
               <motion.span
                 key={index}
                 initial={{ y: "100%", opacity: 0 }}
@@ -410,12 +410,12 @@ function Hero({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
                 }}
                 className="inline-block"
               >
-                {char}
+                {char === " " ? "\u00A0" : char}
               </motion.span>
             ))}
           </h1>
-          <p className="text-[9px] tracking-widest text-muted-foreground uppercase mt-1.5 font-sans italic">
-            S/o Mr. V. Imbichi Mammu &amp; Mrs. Fousiya PM
+          <p className="text-[9px] tracking-widest text-muted-foreground mt-1.5 font-serif italic">
+            Ismayil p / Thasni kt
           </p>
 
           <motion.p
@@ -424,7 +424,7 @@ function Hero({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
             transition={{ delay: 3.6, duration: 1 }}
             className="mt-6 text-[10px] tracking-[0.2em] font-medium text-gold uppercase"
           >
-            Sunday, August 9, 2026
+            Sunday, July 26, 2026
           </motion.p>
         </div>
 
@@ -533,7 +533,7 @@ function Invitation() {
             <div className="relative aspect-[1/1.4] w-full overflow-hidden rounded-xl">
               <img 
                 src={cardImg} 
-                alt="Suhana & Midlaj Wedding Invitation Card" 
+                alt="Hena & Amal Wedding Invitation Card" 
                 className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
               />
               {/* Overlay with Zoom Icon */}
@@ -549,7 +549,7 @@ function Invitation() {
               </span>
               <a 
                 href={cardImg} 
-                download="Suhana-Midlaj-Wedding-Invitation-Card.jpeg"
+                download="Hena-Amal-Wedding-Invitation-Card.jpeg"
                 onClick={(e) => e.stopPropagation()}
                 className="flex items-center gap-1 hover:text-gold transition font-medium tracking-[0.05em] uppercase text-[10px]"
               >
@@ -585,13 +585,13 @@ function Invitation() {
               >
                 <img 
                   src={cardImg} 
-                  alt="Suhana & Midlaj Wedding Invitation Card" 
+                  alt="Hena & Amal Wedding Invitation Card" 
                   className="max-h-[80vh] w-auto rounded-xl object-contain"
                 />
                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
                   <a 
                     href={cardImg} 
-                    download="Suhana-Midlaj-Wedding-Invitation-Card.jpeg"
+                    download="Hena-Amal-Wedding-Invitation-Card.jpeg"
                     className="flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-[10px] font-semibold tracking-luxury text-white uppercase shadow-md transition hover:bg-gold-soft"
                   >
                     <Download size={12} /> Download Card
@@ -647,12 +647,12 @@ function EventSection() {
 
           {/* Month Header Badge */}
           <div className="mx-auto inline-block rounded-full bg-gold/10 px-4 py-1 text-[10px] font-semibold tracking-[0.25em] text-gold uppercase mb-5">
-            August 2026
+            July 2026
           </div>
           
           {/* Big Calendar Date Number */}
           <div className="font-serif-display text-7xl font-light text-ink leading-none tracking-tighter select-none">
-            09
+            26
           </div>
           
           {/* Day of the Week with side ornaments */}
@@ -666,7 +666,7 @@ function EventSection() {
           <div className="mt-6 flex flex-col items-center justify-center gap-1.5 text-xs text-muted-foreground">
             <div className="flex items-center gap-1.5 font-medium text-ink/80">
               <Clock size={13} className="text-gold" />
-              12:00 PM &mdash; 02:00 PM
+              12:30 PM
             </div>
             <div className="tracking-wide text-[10px] text-muted-foreground uppercase mt-0.5">
               Wedding Reception
@@ -676,7 +676,7 @@ function EventSection() {
           {/* Calendar Sync Action */}
           <div className="mt-8 relative z-10">
             <a
-              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Suhana+%26+Midlaj+Wedding&dates=20260809T063000Z/20260809T083000Z&details=The+Shasa+Family+invites+you+to+the+wedding+of+Dr.+Suhana+Suaibu+%26+Mohammed+Midlaj+at+Shasa+Venue+Arakkinar.&location=Shasa+Venue,+Arakkinar,+Kozhikode,+Kerala"
+              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Hena+%26+Amal+Wedding&dates=20260726T070000Z/20260726T090000Z&details=The+family+invites+you+to+the+wedding+of+Hena+Sanbaq+Saleem+%26+Amal+Bin+Ismayil+at+Gokulam+Grand+Kozhikode.&location=Gokulam+Grand,+Mavoor+Rd,+Kozhikode,+Kerala"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold to-gold-soft px-6 py-3 text-[10px] font-semibold tracking-luxury text-white uppercase shadow-soft hover:shadow-luxury transition-all duration-300 hover:-translate-y-0.5"
@@ -717,15 +717,15 @@ function VenueSection() {
             <MapPin size={20} />
           </div>
           
-          <h4 className="font-script text-5xl leading-tight text-gold-gradient mb-2 py-1">
-            Shasa
+          <h4 className="font-script text-4xl leading-tight text-gold-gradient mb-2 py-1">
+            Gokulam Grand Kozhikode
           </h4>
           
           <p className="text-xs tracking-widest text-ink font-semibold uppercase mb-1">
-            Arakkinar, Kozhikode
+            Mavoor Rd, Kozhikode
           </p>
           <p className="text-[11px] text-muted-foreground max-w-xs mx-auto leading-relaxed mb-8">
-            Behind Crystal Plaza, Arakkinar, Kozhikode, Kerala
+            Mavoor Rd, Arayidathupalam, Kozhikode, Kerala 673004
           </p>
 
           <div className="flex flex-col gap-3 relative z-10">
@@ -792,7 +792,7 @@ function FamilySection() {
       <Reveal className="text-center">
         <SectionLabel>With Love From</SectionLabel>
         <h3 className="mt-4 font-serif-display text-3xl font-light text-ink sm:text-5xl">
-          The Shasa Family
+          The Family
         </h3>
       </Reveal>
       <Reveal delay={0.1} className="mt-12">
@@ -852,9 +852,9 @@ function Footer() {
       <Reveal className="relative z-10">
         <Ornament />
         <p className="mt-8 font-script text-4xl text-gold-gradient sm:text-5xl">With Love,</p>
-        <p className="mt-4 font-serif-display text-2xl text-ink sm:text-3xl">The Shasa Family</p>
+        <p className="mt-4 font-serif-display text-2xl text-ink sm:text-3xl">The Family</p>
         <p className="mt-10 text-[10px] tracking-luxury text-muted-foreground uppercase">
-          Suhana &amp; Midlaj · 09 · 08 · 2026
+          Hena &amp; Amal · 26 · 07 · 2026
         </p>
       </Reveal>
     </footer>
