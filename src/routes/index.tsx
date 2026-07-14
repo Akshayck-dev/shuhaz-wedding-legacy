@@ -1,15 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { MapPin, Navigation, Calendar, Clock, ZoomIn, Download, X } from "lucide-react";
 
 import floralTL from "@/assets/floral-tl.png";
 import floralBR from "@/assets/floral-br.png";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroBg from "@/assets/ChatGPT Image Jul 14, 2026, 10_09_24 PM.png";
+import heroBgDesktop from "@/assets/ChatGPT Image Jul 14, 2026, 10_11_34 PM.png";
+import eventBg from "@/assets/ChatGPT Image Jul 14, 2026, 09_39_54 AM.png";
+import eventBgDesktop from "@/assets/ChatGPT Image Jul 14, 2026, 09_40_59 AM.png";
 import rose from "@/assets/rose.png";
 import cardImg from "@/assets/card.jpeg";
 
 import { FloatingPetals } from "@/components/wedding/FloatingPetals";
+import { FloatingButterflies } from "@/components/wedding/FloatingButterflies";
 import { Ornament } from "@/components/wedding/Ornament";
 import { Reveal } from "@/components/wedding/Reveal";
 import { Countdown } from "@/components/wedding/Countdown";
@@ -31,15 +35,14 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Hena & Amal — Wedding · 26 July 2026" },
-      { name: "description", content: "The family invites you to the wedding of Hena Sanbaq Saleem & Amal Bin Ismayil." },
+      { title: "Suhana & Mohammed — Wedding · 9 August 2026" },
+      { name: "description", content: "The family invites you to the wedding of Dr. Suhana Suaibu & Mohammed Millay." },
     ],
   }),
 });
 
 function Index() {
   const [loading, setLoading] = useState(true);
-  const [opened, setOpened] = useState(false);
   const { scrollY } = useScroll();
   const [showMarquee, setShowMarquee] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -50,34 +53,31 @@ function Index() {
   }, []);
 
   useEffect(() => {
-    return scrollY.onChange((latest) => {
-      // Show marquee if scrolled down past 400px and invitation is opened
-      if (opened && latest > 400) {
+    return scrollY.on("change", (latest) => {
+      // Show marquee if scrolled down past 400px
+      if (latest > 400) {
         setShowMarquee(true);
       } else {
         setShowMarquee(false);
       }
       
       // Show scroll-to-top button if scrolled past 600px
-      if (opened && latest > 600) {
+      if (latest > 600) {
         setShowScrollTop(true);
       } else {
         setShowScrollTop(false);
       }
     });
-  }, [opened, scrollY]);
+  }, [scrollY]);
 
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleOpen = () => {
-    setOpened(true);
-    // Smooth scroll to the invitation section after split door transition triggers
-    setTimeout(() => {
-      const invitationSection = document.getElementById("invitation");
-      if (invitationSection) {
-        invitationSection.scrollIntoView({ behavior: "smooth" });
-      }
-    }, 600);
+    // Smooth scroll to the invitation section if they click the scroll indicator
+    const invitationSection = document.getElementById("invitation");
+    if (invitationSection) {
+      invitationSection.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const scrollToTop = () => {
@@ -95,29 +95,11 @@ function Index() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-background">
+    <div className="relative min-h-screen bg-background">
       <AnimatePresence>{loading && <Loader />}</AnimatePresence>
       <MusicToggle />
 
-      {/* Split-door transition screen */}
-      <AnimatePresence>
-        {!opened && !loading && (
-          <div className="fixed inset-0 z-0 pointer-events-none flex">
-            {/* Left Door */}
-            <motion.div 
-              exit={{ x: "-100%" }}
-              transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
-              className="w-1/2 h-full bg-cream border-r border-gold/10 pointer-events-auto"
-            />
-            {/* Right Door */}
-            <motion.div 
-              exit={{ x: "100%" }}
-              transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
-              className="w-1/2 h-full bg-cream border-l border-gold/10 pointer-events-auto"
-            />
-          </div>
-        )}
-      </AnimatePresence>
+
 
       {/* Premium Sticky Top-bar Header */}
       <AnimatePresence>
@@ -134,7 +116,7 @@ function Index() {
               onClick={() => scrollToSection("invitation")}
               className="font-script text-2xl text-gold-gradient tracking-wider pt-1 select-none cursor-pointer"
             >
-              H &amp; A
+              S &amp; M
             </div>
             
             {/* Decorative luxury menu lines */}
@@ -218,33 +200,28 @@ function Index() {
               </button>
 
               <Ornament className="mt-2" />
-              <span className="font-script text-xl text-gold-gradient tracking-wide mt-2">Hena &amp; Amal</span>
+              <span className="font-script text-xl text-gold-gradient tracking-wide mt-2">Suhana &amp; Mohammed</span>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Hero card is always mounted, but contains the button */}
-      <Hero opened={opened} onOpen={handleOpen} />
+      <Hero onOpen={handleOpen} />
 
-      <AnimatePresence>
-        {opened && (
-          <motion.main
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.2, delay: 0.3 }}
-          >
-            <Invitation />
-            <CountdownSection />
-            <EventSection />
-            <VenueSection />
-            <Blessing />
-            <FamilySection />
-            <RsvpSection />
-            <Footer />
-          </motion.main>
-        )}
-      </AnimatePresence>
+      <motion.main
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2, delay: 0.3 }}
+      >
+        <EventSection />
+        <CountdownSection />
+        <VenueSection />
+        <Invitation />
+        <Blessing />
+        <FamilySection />
+        <RsvpSection />
+        <Footer />
+      </motion.main>
 
       {/* Floating Scroll to Top Button */}
       <AnimatePresence>
@@ -296,7 +273,7 @@ function Loader() {
           transition={{ delay: 0.6, duration: 0.8 }}
           className="mt-6 font-script text-4xl text-gold-gradient"
         >
-          Hena & Amal
+          Suhana & Mohammed
         </motion.div>
         <motion.div
           initial={{ opacity: 0 }}
@@ -312,44 +289,20 @@ function Loader() {
 }
 
 /* ---------------- Hero ---------------- */
-function Hero({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
-  const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 800], [0, -120]);
-  const y2 = useTransform(scrollY, [0, 800], [0, 80]);
-  const opacity = useTransform(scrollY, [0, 500], [1, 0]);
-
+function Hero({ onOpen }: { onOpen: () => void }) {
   return (
-    <section className="relative flex min-h-[100svh] items-start justify-center pt-[12vh] overflow-hidden">
-      {/* Background with Cinematic Ken Burns scale pan */}
-      <div className="absolute inset-0 overflow-hidden">
-        <img src={heroBg} alt="" className="h-full w-full object-cover animate-ken-burns" />
-        <div className="absolute inset-0 bg-gradient-to-b from-cream/60 via-cream/40 to-cream" />
+    <section className="relative h-[100svh] w-full overflow-hidden flex items-start justify-center">
+      {/* Background */}
+      <div className="absolute inset-0">
+        <picture>
+          <source media="(min-width: 640px)" srcSet={heroBgDesktop} />
+          <img src={heroBg} alt="" className="h-full w-full object-cover animate-ken-burns" />
+        </picture>
       </div>
+      <FloatingButterflies count={12} />
 
-      <FloatingPetals count={18} />
-
-      {/* Corner florals with parallax scroll & interactive subtle scaling */}
-      <motion.img
-        style={{ y: y1 }}
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.9 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-        src={floralTL}
-        alt=""
-        className="pointer-events-none absolute -top-10 -left-10 w-[45vw] max-w-[520px] sm:w-[32vw]"
-      />
-      <motion.img
-        style={{ y: y2 }}
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.9 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-        src={floralBR}
-        alt=""
-        className="pointer-events-none absolute -right-16 -bottom-16 w-[55vw] max-w-[600px] sm:w-[38vw]"
-      />
-
-      <motion.div style={{ opacity }} className="relative z-10 px-6 text-center w-full max-w-sm mx-auto">
-        <div className="relative overflow-hidden rounded-[2rem] bg-[#FDFBF7]/85 p-8 pb-10 text-center backdrop-blur-md">
+      <div className="relative z-10 px-6 text-center w-full max-w-md mx-auto h-full flex flex-col items-center justify-start pt-[20vh]">
+        <div className="relative overflow-hidden bg-transparent p-8 pb-10 text-center w-full">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -361,22 +314,8 @@ function Hero({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
             </span>
           </motion.div>
 
-          <h1 className="font-serif-display text-4xl leading-[1.2] font-normal tracking-wide text-ink overflow-hidden flex justify-center flex-wrap uppercase">
-            {"HENA SANBAQ SALEEM".split("").map((char, index) => (
-              <motion.span
-                key={index}
-                initial={{ y: "100%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{
-                  delay: 2.5 + index * 0.08,
-                  duration: 0.8,
-                  ease: [0.215, 0.61, 0.355, 1],
-                }}
-                className="inline-block"
-              >
-                {char === " " ? "\u00A0" : char}
-              </motion.span>
-            ))}
+          <h1 className="font-serif-display text-2xl sm:text-3xl leading-[1.2] font-bold tracking-wide text-ink uppercase mt-2">
+            DR. SUHANA SUAIBU
           </h1>
           <p className="text-[9px] tracking-widest text-muted-foreground mt-1.5 font-serif italic">
             Abdul Saleem kz / Haseena saleem
@@ -386,27 +325,15 @@ function Hero({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 3.2, duration: 0.8 }}
-            className="my-3 font-serif-display text-xl font-light text-gold/80 italic"
+            className="my-4 flex items-center justify-center gap-4"
           >
-            &amp;
+            <div className="h-[1px] w-12 bg-gold/40"></div>
+            <span className="font-serif-display text-2xl font-light text-gold/80 italic">&amp;</span>
+            <div className="h-[1px] w-12 bg-gold/40"></div>
           </motion.div>
 
-          <h1 className="font-serif-display text-4xl leading-[1.2] font-normal tracking-wide text-ink overflow-hidden flex justify-center flex-wrap uppercase">
-            {"AMAL BIN ISMAYIL".split("").map((char, index) => (
-              <motion.span
-                key={index}
-                initial={{ y: "100%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{
-                  delay: 3.3 + index * 0.08,
-                  duration: 0.8,
-                  ease: [0.215, 0.61, 0.355, 1],
-                }}
-                className="inline-block"
-              >
-                {char === " " ? "\u00A0" : char}
-              </motion.span>
-            ))}
+          <h1 className="font-serif-display text-2xl sm:text-3xl leading-[1.2] font-bold tracking-wide text-ink uppercase mt-2">
+            MOHAMMED MILLAY
           </h1>
           <p className="text-[9px] tracking-widest text-muted-foreground mt-1.5 font-serif italic">
             Ismayil p / Thasni kt
@@ -418,69 +345,24 @@ function Hero({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
             transition={{ delay: 3.6, duration: 1 }}
             className="mt-6 text-[10px] tracking-[0.2em] font-medium text-gold uppercase"
           >
-            Sunday, July 26, 2026
+            Sunday, August 9, 2026
           </motion.p>
         </div>
 
-        {!opened && (
-          <div className="mt-8 flex flex-col items-center justify-center relative select-none">
-            <span className="rounded-full border border-gold/30 bg-white/40 px-5 py-2 text-[9px] font-semibold tracking-[0.3em] text-gold uppercase backdrop-blur-sm">
-              Pull down to Open
-            </span>
-            
-            {/* Draggable Hanging Cord with Arrow */}
-            <motion.div
-              drag="y"
-              dragConstraints={{ top: 0, bottom: 90 }}
-              dragElastic={0.2}
-              dragSnapToOrigin
-              onDragEnd={(event, info) => {
-                // If pulled down past 65px, trigger the open handler
-                if (info.offset.y > 65) {
-                  onOpen();
-                }
-              }}
-              initial={{ opacity: 0, y: 0 }}
-              animate={{ opacity: 1, y: [0, 8, 0] }}
-              transition={{
-                opacity: { delay: 4.2, duration: 1 },
-                y: { duration: 2, repeat: Infinity, ease: "easeInOut", repeatType: "mirror" }
-              }}
-              className="mt-4 flex flex-col items-center cursor-grab active:cursor-grabbing z-30"
-            >
-              {/* String line */}
-              <div className="w-[1.5px] h-14 bg-gradient-to-b from-gold/40 via-gold to-gold-soft" />
-              {/* Golden Round Badge with Down Arrow */}
-              <div className="flex h-11 w-11 items-center justify-center rounded-full border border-gold/60 bg-gradient-to-b from-gold-soft to-gold text-white shadow-luxury">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2.5}
-                  stroke="currentColor"
-                  className="h-4 w-4 animate-bounce"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                </svg>
-              </div>
-            </motion.div>
-          </div>
-        )}
-
-        <Ornament className="mt-12" />
-      </motion.div>
-
-      {/* scroll cue */}
-      {opened && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, y: [0, 10, 0] }}
-          transition={{ opacity: { delay: 1 }, y: { duration: 2, repeat: Infinity } }}
-          className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-[10px] tracking-luxury text-muted-foreground uppercase"
-        >
-          Scroll
-        </motion.div>
-      )}
+        <div className="mt-auto absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center cursor-pointer select-none" onClick={onOpen}>
+          <span className="text-[9px] font-bold tracking-[0.3em] text-gold uppercase mb-2">SCROLL</span>
+          <motion.div
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ repeat: Infinity, duration: 1.5, repeatType: "mirror" }}
+            className="flex flex-col gap-0.5 text-gold/60"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 }
@@ -527,7 +409,7 @@ function Invitation() {
             <div className="relative aspect-[1/1.4] w-full overflow-hidden rounded-xl">
               <img 
                 src={cardImg} 
-                alt="Hena & Amal Wedding Invitation Card" 
+                alt="Suhana & Mohammed Wedding Invitation Card" 
                 className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
               />
               {/* Overlay with Zoom Icon */}
@@ -543,7 +425,7 @@ function Invitation() {
               </span>
               <a 
                 href={cardImg} 
-                download="Hena-Amal-Wedding-Invitation-Card.jpeg"
+                download="Suhana-Mohammed-Wedding-Invitation-Card.jpeg"
                 onClick={(e) => e.stopPropagation()}
                 className="flex items-center gap-1 hover:text-gold transition font-medium tracking-[0.05em] uppercase text-[10px]"
               >
@@ -579,13 +461,13 @@ function Invitation() {
               >
                 <img 
                   src={cardImg} 
-                  alt="Hena & Amal Wedding Invitation Card" 
+                  alt="Suhana & Mohammed Wedding Invitation Card" 
                   className="max-h-[80vh] w-auto rounded-xl object-contain"
                 />
                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
                   <a 
                     href={cardImg} 
-                    download="Hena-Amal-Wedding-Invitation-Card.jpeg"
+                    download="Suhana-Mohammed-Wedding-Invitation-Card.jpeg"
                     className="flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-[10px] font-semibold tracking-luxury text-white uppercase shadow-md transition hover:bg-gold-soft"
                   >
                     <Download size={12} /> Download Card
@@ -603,7 +485,7 @@ function Invitation() {
 /* ---------------- Countdown ---------------- */
 function CountdownSection() {
   return (
-    <Section id="countdown" className="bg-[#FDFBF7] min-h-screen flex flex-col items-center justify-center pt-20 pb-20 relative overflow-hidden">
+    <Section id="countdown" className="bg-[#FDFBF7] flex flex-col items-center justify-center py-10 sm:py-12 relative overflow-hidden">
       <Reveal className="text-center w-full z-10">
         <Ornament className="mb-4 rotate-180" />
         <SectionLabel>Counting Down</SectionLabel>
@@ -614,39 +496,45 @@ function CountdownSection() {
 
         <Ornament className="mt-12" />
 
-        <div className="mt-12">
+        <div className="mt-12 text-center">
           <SectionLabel>We Welcome You</SectionLabel>
           <div className="text-gold/20 mt-4">
             <svg className="w-10 h-10 mx-auto" fill="currentColor" viewBox="0 0 24 24">
               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
             </svg>
           </div>
-          <p className="font-serif italic text-ink/90 text-[15px] sm:text-lg leading-loose max-w-md mx-auto mt-4 px-6 text-center">
+          <p className="font-serif italic text-ink/90 text-[14px] sm:text-[15px] leading-relaxed max-w-md mx-auto mt-4 px-6 text-center">
             You have played a beautiful part in our love story. Now we invite you to be there as we write the most important chapter yet.
           </p>
-        </div>
 
-        <Ornament className="mt-12" />
+          <div className="mt-8">
+            <h4 className="font-serif-display text-lg sm:text-xl text-ink font-semibold">
+              Mr. N. P. Shuhaib &amp; Mrs. K. V. Asmabi
+            </h4>
+            <p className="text-[9px] tracking-widest text-muted-foreground uppercase mt-4 max-w-xs mx-auto leading-loose">
+              Request the pleasure of your presence and prayers at the
+            </p>
+            <h3 className="font-script text-4xl text-gold mt-4 mb-2">Wedding</h3>
+            <p className="text-[9px] tracking-widest text-muted-foreground uppercase mb-6">
+              Of their beloved daughter
+            </p>
 
-        <div className="mt-12">
-          <SectionLabel>With the blessings of our families</SectionLabel>
-          
-          <div className="mt-8 text-center">
-            <h4 className="font-serif-display text-xl sm:text-2xl text-ink uppercase tracking-wide">HENA SANBAQ SALEEM</h4>
-            <p className="font-serif italic text-[11px] sm:text-xs text-muted-foreground mt-2">Abdul Saleem kz / Haseena saleem</p>
-          </div>
-          
-          <div className="my-8 text-center flex flex-col items-center">
-            <span className="text-[8px] font-bold tracking-[0.3em] text-gold uppercase mb-2">SCROLL</span>
-            <div className="flex flex-col gap-0.5 text-gold/60">
-              <svg className="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-              <svg className="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+            <h4 className="font-serif-display text-2xl sm:text-3xl text-ink uppercase tracking-wide">
+              Dr. Suhana Suaibu
+            </h4>
+            
+            <div className="my-4 text-gold/40 flex items-center justify-center gap-4">
+              <div className="h-[1px] w-12 bg-gold/40"></div>
+              <span className="font-serif italic text-sm text-gold">with</span>
+              <div className="h-[1px] w-12 bg-gold/40"></div>
             </div>
-          </div>
-          
-          <div className="text-center">
-            <h4 className="font-serif-display text-xl sm:text-2xl text-ink uppercase tracking-wide">AMAL BIN ISMAYIL</h4>
-            <p className="font-serif italic text-[11px] sm:text-xs text-muted-foreground mt-2">Ismayil p / Thasni kt</p>
+
+            <h4 className="font-serif-display text-2xl sm:text-3xl text-ink uppercase tracking-wide">
+              Mohammed Millay
+            </h4>
+            <p className="font-serif italic text-[11px] sm:text-xs text-muted-foreground mt-3">
+              S/o V. Imbichi Mammu and Fousiya PM
+            </p>
           </div>
         </div>
       </Reveal>
@@ -660,59 +548,66 @@ function CountdownSection() {
 /* ---------------- Event ---------------- */
 function EventSection() {
   return (
-    <section className="relative flex min-h-[100svh] items-start justify-center pt-[12vh] overflow-hidden" id="event">
+    <section className="relative flex items-center justify-center py-12 sm:py-16 overflow-hidden" id="event">
       <div className="absolute inset-0 overflow-hidden">
-        <img src={heroBg} alt="" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#FDFBF7]/60 via-[#FDFBF7]/40 to-[#FDFBF7]" />
+        <picture>
+          <source media="(min-width: 640px)" srcSet={eventBgDesktop} />
+          <img src={eventBg} alt="" className="h-full w-full object-cover" />
+        </picture>
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="relative z-10 px-6 text-center w-full max-w-sm mx-auto">
-        <div className="relative overflow-hidden rounded-[2rem] bg-[#FDFBF7]/85 p-8 pb-10 text-center backdrop-blur-md">
-          <div className="mb-6 inline-block mx-auto">
-            <span className="rounded-sm border border-gold/20 px-4 py-1.5 text-[8px] font-semibold tracking-[0.3em] text-ink/70 uppercase">
-              Nikah
-            </span>
-          </div>
+      <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="relative z-10 px-6 text-center w-full max-w-md mx-auto flex flex-col items-center">
+        <div className="mb-8 sm:mb-12">
+          <span className="rounded-sm border border-gold/20 px-5 py-2 text-[9px] font-semibold tracking-[0.3em] text-ink/70 uppercase bg-[#FDFBF7]/60 backdrop-blur-sm">
+            Nikah
+          </span>
+        </div>
+        
+        {/* Spacer for where the rings are in the background image */}
+        <div className="h-20 sm:h-28"></div>
+        <h4 className="font-serif-display text-sm sm:text-base text-ink uppercase tracking-widest text-gold-gradient font-semibold">
+          SUNDAY
+        </h4>
+        <h3 className="font-serif-display text-xl sm:text-2xl text-gold mt-2 tracking-wider">
+          9 AUGUST 2026 12:00 PM - 02:00 PM
+        </h3>
 
-          <div className="flex justify-center mb-8">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="9" cy="12" r="5" stroke="#BA9554" strokeWidth="0.8"/>
-              <circle cx="15" cy="12" r="5" stroke="#BA9554" strokeWidth="0.8"/>
-              <path d="M12 7L13 5L15 6.5L12 7Z" fill="#BA9554" opacity="0.8"/>
-            </svg>
-          </div>
-          
-          <h4 className="font-serif-display text-xl text-ink uppercase tracking-wide">
-            Sunday, July 26, 2026
-          </h4>
-          <h3 className="font-serif-display text-2xl text-gold mt-1">
-            12:30 PM
-          </h3>
+        <div className="my-6 text-gold/30 flex items-center justify-center gap-4">
+          <div className="h-[1px] w-12 bg-gold/40"></div>
+          <Ornament />
+          <div className="h-[1px] w-12 bg-gold/40"></div>
+        </div>
 
-          <Ornament className="my-6 scale-75" />
-
-          <p className="text-[8px] font-bold tracking-[0.3em] text-ink/70 uppercase mb-2">
-            Venue
-          </p>
-          <h4 className="font-serif-display text-[15px] sm:text-lg text-ink font-bold uppercase tracking-wide">
-            Gokulam Grand Kozhikode
-          </h4>
-          <p className="text-[7px] sm:text-[9px] tracking-widest text-muted-foreground uppercase mt-2 leading-relaxed max-w-[200px] mx-auto">
-            Mavoor Rd, Arayidathupalam, Kozhikode, Kerala 673004
-          </p>
-          
-          <div className="mt-8">
-            <a
-              href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Hena+%26+Amal+Wedding&dates=20260726T070000Z/20260726T090000Z&details=The+family+invites+you+to+the+wedding+of+Hena+Sanbaq+Saleem+%26+Amal+Bin+Ismayil+at+Gokulam+Grand+Kozhikode.&location=Gokulam+Grand,+Mavoor+Rd,+Kozhikode,+Kerala"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-white/50 px-6 py-2.5 text-[9px] font-semibold tracking-widest text-ink uppercase shadow-sm hover:bg-gold hover:text-white transition-all duration-300"
-            >
-              <Navigation size={10} className="-mt-0.5" /> Directions
-            </a>
-          </div>
+        <p className="text-[10px] tracking-[0.3em] font-medium text-muted-foreground uppercase mb-2">
+          VENUE
+        </p>
+        <h4 className="font-serif-display text-lg sm:text-xl text-ink font-bold uppercase tracking-widest">
+          Shasa
+        </h4>
+        <p className="text-[8px] sm:text-[9px] tracking-widest text-muted-foreground uppercase mt-3 leading-relaxed max-w-[280px] mx-auto font-medium">
+          Behind Crystal Plaza, Arakkinar.
+        </p>
+        
+        <div className="mt-8 mb-16">
+          <a
+            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Suhana+%26+Mohammed+Wedding&dates=20260809T063000Z/20260809T083000Z&details=The+family+invites+you+to+the+wedding+of+Dr.+Suhana+Suaibu+%26+Mohammed+Millay+at+Shasa.&location=Shasa,+Behind+Crystal+Plaza,+Arakkinar"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-[#FDFBF7]/80 px-8 py-3 text-[9px] font-bold tracking-[0.2em] text-ink uppercase shadow-sm hover:bg-gold hover:text-white transition-all duration-300 backdrop-blur-md"
+          >
+            <Navigation size={12} className="-mt-0.5" /> Directions
+          </a>
         </div>
       </motion.div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
+        <span className="text-[8px] font-bold tracking-[0.4em] text-gold/80 uppercase mb-2">Scroll</span>
+        <div className="flex flex-col gap-0.5 text-gold/60">
+          <svg className="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+          <svg className="w-4 h-4 animate-bounce" style={{ marginTop: "-12px", animationDelay: "0.2s" }} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+        </div>
+      </div>
     </section>
   );
 }
@@ -724,10 +619,10 @@ function VenueSection() {
       <Reveal className="text-center w-full">
         <SectionLabel>FIND US</SectionLabel>
         <h3 className="mt-4 font-serif-display text-2xl font-light text-ink uppercase tracking-wide">
-          Gokulam Grand Kozhikode
+          Shasa
         </h3>
         <p className="text-[8px] tracking-[0.2em] text-muted-foreground uppercase mt-3">
-          Mavoor Rd, Arayidathupalam, Kozhikode, Kerala 673004
+          Behind Crystal Plaza, Arakkinar
         </p>
       </Reveal>
 
@@ -753,8 +648,8 @@ function VenueSection() {
 
           <div className="absolute bottom-4 left-4 right-4 bg-white p-4 rounded-xl shadow-luxury flex items-center justify-between border border-gold/10">
              <div>
-               <h4 className="font-bold text-[11px] text-ink">Gokulam Grand Kozhikode</h4>
-               <p className="text-[8px] text-muted-foreground mt-1 line-clamp-1">Mavoor Rd, Arayidathupalam, Kozhikode</p>
+               <h4 className="font-bold text-[11px] text-ink">Shasa</h4>
+               <p className="text-[8px] text-muted-foreground mt-1 line-clamp-1">Behind Crystal Plaza, Arakkinar</p>
              </div>
              <a
               href={MAP_URL}
@@ -768,14 +663,7 @@ function VenueSection() {
         </div>
       </Reveal>
 
-      <div className="mt-20 text-center">
-        <Ornament className="rotate-180 mb-6" />
-        <p className="text-[10px] italic text-muted-foreground font-serif">Want a beautiful invitation like this one?</p>
-        <button className="mt-4 bg-[#B98F45] text-white px-6 py-3 rounded-full text-[10px] font-bold tracking-widest hover:bg-[#A37B3B] transition shadow-md">
-          + CREATE YOURS
-        </button>
-        <Ornament className="mt-6" />
-      </div>
+
     </Section>
   );
 }
@@ -882,7 +770,7 @@ function Footer() {
         <p className="mt-8 font-script text-4xl text-gold-gradient sm:text-5xl">With Love,</p>
         <p className="mt-4 font-serif-display text-2xl text-ink sm:text-3xl">The Family</p>
         <p className="mt-10 text-[10px] tracking-luxury text-muted-foreground uppercase">
-          Hena &amp; Amal · 26 · 07 · 2026
+          Suhana &amp; Mohammed · 09 · 08 · 2026
         </p>
       </Reveal>
     </footer>
