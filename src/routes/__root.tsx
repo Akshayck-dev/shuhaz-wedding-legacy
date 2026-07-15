@@ -82,20 +82,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       // Open Graph
       { property: "og:title", content: "Suhana ❤️ Midlaj | Wedding Invitation" },
       { property: "og:description", content: "Together with our families, we warmly invite you to celebrate our wedding." },
-      { property: "og:image", content: "https://suhanawedsmidlaj.in/og-image.jpg" },
-      { property: "og:url", content: "https://suhanawedsmidlaj.in" },
+      { property: "og:image", content: "https://www.suhanawedsmidlaj.in/og-image.jpg" },
+      { property: "og:url", content: "https://www.suhanawedsmidlaj.in" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Suhana Weds Midlaj" },
       // Twitter Card
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Suhana ❤️ Midlaj | Wedding Invitation" },
       { name: "twitter:description", content: "Together with our families, we warmly invite you to celebrate our wedding." },
-      { name: "twitter:image", content: "https://suhanawedsmidlaj.in/og-image.jpg" },
+      { name: "twitter:image", content: "https://www.suhanawedsmidlaj.in/og-image.jpg" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
-      { rel: "canonical", href: "https://suhanawedsmidlaj.in" },
+      { rel: "canonical", href: "https://www.suhanawedsmidlaj.in" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
