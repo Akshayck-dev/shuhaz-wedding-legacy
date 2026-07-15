@@ -314,9 +314,13 @@ function Hero({ onOpen }: { onOpen: () => void }) {
             </span>
           </motion.div>
 
-          <h1 className="font-serif-display text-2xl sm:text-3xl leading-[1.2] font-bold tracking-wide text-ink uppercase mt-2">
+          <motion.h1 
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.8, duration: 1, ease: "easeOut" }}
+            className="font-serif-display text-2xl sm:text-3xl leading-[1.2] font-bold tracking-wide text-ink uppercase mt-2">
             DR. SUHANA SUAIBU
-          </h1>
+          </motion.h1>
 
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -329,9 +333,13 @@ function Hero({ onOpen }: { onOpen: () => void }) {
             <div className="h-[1px] w-12 bg-gold/40"></div>
           </motion.div>
 
-          <h1 className="font-serif-display text-2xl sm:text-3xl leading-[1.2] font-bold tracking-wide text-ink uppercase mt-2">
+          <motion.h1 
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 3.4, duration: 1, ease: "easeOut" }}
+            className="font-serif-display text-2xl sm:text-3xl leading-[1.2] font-bold tracking-wide text-ink uppercase mt-2">
             MOHAMMED MIDLAJ
-          </h1>
+          </motion.h1>
 
           <motion.p
             initial={{ opacity: 0 }}

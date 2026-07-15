@@ -1,10 +1,13 @@
 import { useState, type FormEvent } from "react";
 import { Reveal } from "./Reveal";
 import { User, Users } from "lucide-react";
+import Confetti from "react-confetti";
+import { useWindowSize } from "react-use";
 
 export function RsvpForm() {
   const [attending, setAttending] = useState<"yes" | "no">("yes");
   const [submitted, setSubmitted] = useState(false);
+  const { width, height } = useWindowSize();
 
   function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -26,15 +29,28 @@ export function RsvpForm() {
 
   if (submitted) {
     return (
-      <Reveal className="relative mx-auto max-w-sm overflow-hidden rounded-3xl border border-gold/15 bg-white/60 p-10 text-center backdrop-blur-md shadow-luxury">
-        <div className="absolute inset-3 pointer-events-none rounded-[1.25rem] border border-gold/10" />
-        <div className="font-script text-5xl text-gold-gradient py-1">Thank you</div>
-        <p className="mt-4 text-xs text-muted-foreground leading-relaxed">
-          {attending === "yes" 
-            ? "Your response has been recorded. We look forward to sharing this blessed day with you."
-            : "Thank you for letting us know. You will be missed!"}
-        </p>
-      </Reveal>
+      <>
+        {attending === "yes" && (
+          <Confetti
+            width={width}
+            height={height}
+            recycle={false}
+            numberOfPieces={400}
+            gravity={0.15}
+            colors={['#D4AF37', '#F3E5AB', '#ffffff']}
+            style={{ position: 'fixed', top: 0, left: 0, zIndex: 100 }}
+          />
+        )}
+        <Reveal className="relative mx-auto max-w-sm overflow-hidden rounded-3xl border border-gold/15 bg-white/60 p-10 text-center backdrop-blur-md shadow-luxury">
+          <div className="absolute inset-3 pointer-events-none rounded-[1.25rem] border border-gold/10" />
+          <div className="font-script text-5xl text-gold-gradient py-1">Thank you</div>
+          <p className="mt-4 text-xs text-muted-foreground leading-relaxed">
+            {attending === "yes" 
+              ? "Your response has been recorded. We look forward to sharing this blessed day with you."
+              : "Thank you for letting us know. You will be missed!"}
+          </p>
+        </Reveal>
+      </>
     );
   }
 
