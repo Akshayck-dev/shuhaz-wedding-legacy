@@ -310,7 +310,7 @@ function Hero({ onOpen }: { onOpen: () => void }) {
             className="mb-6 inline-block mx-auto"
           >
             <span className="rounded-sm border border-gold/20 px-4 py-1.5 text-[8px] font-semibold tracking-[0.3em] text-ink/70 uppercase">
-              Nikah
+              Wedding
             </span>
           </motion.div>
 
@@ -561,7 +561,7 @@ function EventSection() {
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="relative z-10 px-6 text-center w-full max-w-md mx-auto flex flex-col items-center">
         <div className="mb-8 sm:mb-12">
           <span className="rounded-sm border border-gold/20 px-5 py-2 text-[9px] font-semibold tracking-[0.3em] text-ink/70 uppercase bg-[#FDFBF7]/60 backdrop-blur-sm">
-            Nikah
+            Wedding
           </span>
         </div>
         
