@@ -520,7 +520,7 @@ function CountdownSection() {
             </div>
 
             <h4 className="font-serif-display text-2xl sm:text-3xl text-ink uppercase tracking-wide">
-              Midlaj
+              Mohammed Midlaj
             </h4>
             <p className="font-serif italic text-[11px] sm:text-xs text-muted-foreground mt-3">
               S/o V. Imbichi Mammu and Fousiya PM
