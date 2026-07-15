@@ -27,8 +27,8 @@ const MAP_EMBED =
   "https://www.google.com/maps?q=11.202179908752441,75.80118560791016&z=17&hl=en&output=embed";
 
 const family = [
-  "Naju", "Anu", "Sabaniya", "Shamsiya", "Naufan", "Faabi", "Faaz",
-  "Hamilaan", "Faiza", "Falyn", "Hanym", "Heizaan", "Neva",
+  "Naju", "Anu", "Sabaniya", "Shamsiya", "Naufan", "Fabi", "Faaz",
+  "Hamilan", "Faiza", "Falyn", "Hanym", "Heizan", "Neva",
 ];
 
 export const Route = createFileRoute("/")({

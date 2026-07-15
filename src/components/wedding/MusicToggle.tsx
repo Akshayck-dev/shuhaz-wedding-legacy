@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Music2, VolumeX } from "lucide-react";
 
-const SRC =
-  "https://cdn.pixabay.com/download/audio/2022/10/25/audio_946bc7a8b3.mp3?filename=relaxing-piano-music-116084.mp3";
+const SRC = "/audio.mpeg";
 
 export function MusicToggle() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
