@@ -35,7 +35,7 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Suhana & Mohammed — Wedding · 9 August 2026" },
+      { title: "Suhana & Midlaj — Wedding · 9 August 2026" },
       { name: "description", content: "The family invites you to the wedding of Dr. Suhana Suaibu & Mohammed Midlaj." },
     ],
   }),
@@ -200,7 +200,7 @@ function Index() {
               </button>
 
               <Ornament className="mt-2" />
-              <span className="font-script text-xl text-gold-gradient tracking-wide mt-2">Suhana &amp; Mohammed</span>
+              <span className="font-script text-xl text-gold-gradient tracking-wide mt-2">Suhana &amp; Midlaj</span>
             </div>
           </motion.div>
         )}
@@ -273,7 +273,7 @@ function Loader() {
           transition={{ delay: 0.6, duration: 0.8 }}
           className="mt-6 font-script text-4xl text-gold-gradient"
         >
-          Suhana & Mohammed
+          Suhana & Midlaj
         </motion.div>
         <motion.div
           initial={{ opacity: 0 }}
@@ -411,7 +411,7 @@ function Invitation() {
             <div className="relative aspect-[1/1.4] w-full overflow-hidden rounded-xl">
               <img 
                 src={cardImg} 
-                alt="Suhana & Mohammed Wedding Invitation Card" 
+                alt="Suhana & Midlaj Wedding Invitation Card" 
                 className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
               />
               {/* Overlay with Zoom Icon */}
@@ -427,7 +427,7 @@ function Invitation() {
               </span>
               <a 
                 href={cardImg} 
-                download="Suhana-Mohammed-Wedding-Invitation-Card.jpeg"
+                download="Suhana-Midlaj-Wedding-Invitation-Card.jpeg"
                 onClick={(e) => e.stopPropagation()}
                 className="flex items-center gap-1 hover:text-gold transition font-medium tracking-[0.05em] uppercase text-[10px]"
               >
@@ -463,13 +463,13 @@ function Invitation() {
               >
                 <img 
                   src={cardImg} 
-                  alt="Suhana & Mohammed Wedding Invitation Card" 
+                  alt="Suhana & Midlaj Wedding Invitation Card" 
                   className="max-h-[80vh] w-auto rounded-xl object-contain"
                 />
                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
                   <a 
                     href={cardImg} 
-                    download="Suhana-Mohammed-Wedding-Invitation-Card.jpeg"
+                    download="Suhana-Midlaj-Wedding-Invitation-Card.jpeg"
                     className="flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-[10px] font-semibold tracking-luxury text-white uppercase shadow-md transition hover:bg-gold-soft"
                   >
                     <Download size={12} /> Download Card
@@ -592,7 +592,7 @@ function EventSection() {
         
         <div className="mt-8 mb-16">
           <a
-            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Suhana+%26+Mohammed+Wedding&dates=20260809T063000Z/20260809T083000Z&details=The+family+invites+you+to+the+wedding+of+Dr.+Suhana+Suaibu+%26+Mohammed+Midlaj+at+Shasa.&location=Shasa,+Behind+Crystal+Plaza,+Arakkinar"
+            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Suhana+%26+Midlaj+Wedding&dates=20260809T063000Z/20260809T083000Z&details=The+family+invites+you+to+the+wedding+of+Dr.+Suhana+Suaibu+%26+Mohammed+Midlaj+at+Shasa.&location=Shasa,+Behind+Crystal+Plaza,+Arakkinar"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-[#FDFBF7]/80 px-8 py-3 text-[9px] font-bold tracking-[0.2em] text-ink uppercase shadow-sm hover:bg-gold hover:text-white transition-all duration-300 backdrop-blur-md"
@@ -772,7 +772,7 @@ function Footer() {
         <p className="mt-8 font-script text-4xl text-gold-gradient sm:text-5xl">With Love,</p>
         <p className="mt-4 font-serif-display text-2xl text-ink sm:text-3xl">Shasa Family</p>
         <p className="mt-10 text-[10px] tracking-luxury text-muted-foreground uppercase">
-          Suhana &amp; Mohammed · 09 · 08 · 2026
+          Suhana &amp; Midlaj · 09 · 08 · 2026
         </p>
       </Reveal>
     </footer>
