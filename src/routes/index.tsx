@@ -34,7 +34,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Suhana & Midlaj — Wedding · 9 August 2026" },
-      { name: "description", content: "The family invites you to the wedding of Dr. Suhana Suaibu & Mohammed Midlaj." },
+      { name: "description", content: "The family invites you to the wedding of Dr. Suhana Suaibu & Midlaj." },
     ],
   }),
 });
@@ -542,7 +542,7 @@ function CountdownSection() {
             </div>
 
             <h4 className="font-serif-display text-2xl sm:text-3xl text-ink uppercase tracking-wide">
-              Mohammed Midlaj
+              Midlaj
             </h4>
             <p className="font-serif italic text-[11px] sm:text-xs text-muted-foreground mt-3">
               S/o V. Imbichi Mammu and Fousiya PM
@@ -569,7 +569,7 @@ function AddToCalendarButton() {
       "DTSTART:20260809T073000Z",
       "DTEND:20260809T093000Z",
       "SUMMARY:Suhana & Midlaj Wedding",
-      "DESCRIPTION:The family invites you to the wedding of Dr. Suhana Suaibu & Mohammed Midlaj",
+      "DESCRIPTION:The family invites you to the wedding of Dr. Suhana Suaibu & Midlaj",
       "LOCATION:Shasa\\, Behind Crystal Plaza\\, Arakkinar",
       "STATUS:CONFIRMED",
       "END:VEVENT",

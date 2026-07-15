@@ -77,16 +77,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Suhana & Mohammed — Wedding Invitation · 9 August 2026" },
-      { name: "description", content: "With love, the family invites you to the wedding of Dr. Suhana Suaibu & Mohammed Midlaj — Sunday, 9 August 2026 at Shasa, Arakkinar." },
-      { property: "og:title", content: "Suhana & Mohammed — Wedding Invitation" },
-      { property: "og:description", content: "Sunday, 9 August 2026 · Shasa. Your presence and prayers will be a blessing." },
+      { title: "Suhana ❤️ Midlaj | Wedding Invitation" },
+      { name: "description", content: "Together with our families, we warmly invite you to celebrate our wedding." },
+      // Open Graph
+      { property: "og:title", content: "Suhana ❤️ Midlaj | Wedding Invitation" },
+      { property: "og:description", content: "Together with our families, we warmly invite you to celebrate our wedding." },
+      { property: "og:image", content: "https://suhanawedsmidlaj.in/og-image.jpg" },
+      { property: "og:url", content: "https://suhanawedsmidlaj.in" },
       { property: "og:type", content: "website" },
+      // Twitter Card
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Suhana ❤️ Midlaj | Wedding Invitation" },
+      { name: "twitter:description", content: "Together with our families, we warmly invite you to celebrate our wedding." },
+      { name: "twitter:image", content: "https://suhanawedsmidlaj.in/og-image.jpg" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "canonical", href: "https://suhanawedsmidlaj.in" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
