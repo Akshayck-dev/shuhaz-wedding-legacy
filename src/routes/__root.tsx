@@ -85,6 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:image", content: "https://suhanawedsmidlaj.in/og-image.jpg" },
       { property: "og:url", content: "https://suhanawedsmidlaj.in" },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Suhana Weds Midlaj" },
       // Twitter Card
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Suhana ❤️ Midlaj | Wedding Invitation" },
