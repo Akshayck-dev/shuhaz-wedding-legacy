@@ -78,7 +78,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Suhana & Mohammed — Wedding Invitation · 9 August 2026" },
-      { name: "description", content: "With love, the family invites you to the wedding of Dr. Suhana Suaibu & Mohammed Millayyjis — Sunday, 9 August 2026 at Shasa, Arakkinar." },
+      { name: "description", content: "With love, the family invites you to the wedding of Dr. Suhana Suaibu & Mohammed Midlaj — Sunday, 9 August 2026 at Shasa, Arakkinar." },
       { property: "og:title", content: "Suhana & Mohammed — Wedding Invitation" },
       { property: "og:description", content: "Sunday, 9 August 2026 · Shasa. Your presence and prayers will be a blessing." },
       { property: "og:type", content: "website" },

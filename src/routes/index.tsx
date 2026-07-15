@@ -36,7 +36,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Suhana & Mohammed — Wedding · 9 August 2026" },
-      { name: "description", content: "The family invites you to the wedding of Dr. Suhana Suaibu & Mohammed Millayyjis." },
+      { name: "description", content: "The family invites you to the wedding of Dr. Suhana Suaibu & Mohammed Midlaj." },
     ],
   }),
 });
@@ -330,7 +330,7 @@ function Hero({ onOpen }: { onOpen: () => void }) {
           </motion.div>
 
           <h1 className="font-serif-display text-2xl sm:text-3xl leading-[1.2] font-bold tracking-wide text-ink uppercase mt-2">
-            MOHAMMED MILLAYYJIS
+            MOHAMMED MIDLAJ
           </h1>
 
           <motion.p
@@ -524,7 +524,7 @@ function CountdownSection() {
             </div>
 
             <h4 className="font-serif-display text-2xl sm:text-3xl text-ink uppercase tracking-wide">
-              Mohammed Millayyjis
+              Mohammed Midlaj
             </h4>
             <p className="font-serif italic text-[11px] sm:text-xs text-muted-foreground mt-3">
               S/o V. Imbichi Mammu and Fousiya PM
@@ -584,7 +584,7 @@ function EventSection() {
         
         <div className="mt-8 mb-16">
           <a
-            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Suhana+%26+Mohammed+Wedding&dates=20260809T063000Z/20260809T083000Z&details=The+family+invites+you+to+the+wedding+of+Dr.+Suhana+Suaibu+%26+Mohammed+Millayyjis+at+Shasa.&location=Shasa,+Behind+Crystal+Plaza,+Arakkinar"
+            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Suhana+%26+Mohammed+Wedding&dates=20260809T063000Z/20260809T083000Z&details=The+family+invites+you+to+the+wedding+of+Dr.+Suhana+Suaibu+%26+Mohammed+Midlaj+at+Shasa.&location=Shasa,+Behind+Crystal+Plaza,+Arakkinar"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-[#FDFBF7]/80 px-8 py-3 text-[9px] font-bold tracking-[0.2em] text-ink uppercase shadow-sm hover:bg-gold hover:text-white transition-all duration-300 backdrop-blur-md"
