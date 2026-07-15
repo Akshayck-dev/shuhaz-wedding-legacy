@@ -7,8 +7,8 @@ import floralTL from "@/assets/floral-tl.png";
 import floralBR from "@/assets/floral-br.png";
 import heroBg from "@/assets/ChatGPT Image Jul 14, 2026, 10_09_24 PM.png";
 import heroBgDesktop from "@/assets/ChatGPT Image Jul 14, 2026, 10_11_34 PM.png";
-import eventBg from "@/assets/ChatGPT Image Jul 14, 2026, 09_39_54 AM.png";
-import eventBgDesktop from "@/assets/ChatGPT Image Jul 14, 2026, 09_40_59 AM.png";
+import eventBg from "@/assets/event-bg.png";
+import eventBgDesktop from "@/assets/event-bg.jpg";
 import rose from "@/assets/rose.png";
 import cardImg from "@/assets/card.jpeg";
 
@@ -27,8 +27,8 @@ const MAP_EMBED =
   "https://www.google.com/maps?q=11.202179908752441,75.80118560791016&z=17&hl=en&output=embed";
 
 const family = [
-  "Naju", "Anu", "Sabaniya", "Shamsiya", "Naufan", "Fabi", "Faaz",
-  "Hamilan", "Faiza", "Falyn", "Hanym", "Heizan", "Neva",
+  "Naju", "Anu", "Sabani", "Shamsi", "Naufan", "Fabi", "Faaz",
+  "Hami", "Faiza", "Falyn", "Hanym", "Heizan", "Neva",
 ];
 
 export const Route = createFileRoute("/")({
@@ -568,8 +568,8 @@ function AddToCalendarButton() {
       "PRODID:-//Suhana & Midlaj Wedding//EN",
       "BEGIN:VEVENT",
       "UID:suhana-midlaj-wedding-2026@shuhaz",
-      "DTSTART:20260809T063000Z",
-      "DTEND:20260809T083000Z",
+      "DTSTART:20260809T073000Z",
+      "DTEND:20260809T093000Z",
       "SUMMARY:Suhana & Midlaj Wedding",
       "DESCRIPTION:The family invites you to the wedding of Dr. Suhana Suaibu & Mohammed Midlaj",
       "LOCATION:Shasa\\, Behind Crystal Plaza\\, Arakkinar",
@@ -624,7 +624,7 @@ function EventSection() {
           SUNDAY
         </h4>
         <h3 className="font-serif-display text-xl sm:text-2xl text-gold mt-2 tracking-wider">
-          9 AUGUST 2026 12:00 PM - 02:00 PM
+          9 AUGUST 2026 1:00 PM - 3:00 PM
         </h3>
 
         <div className="my-6 text-gold/30 flex items-center justify-center gap-4">
