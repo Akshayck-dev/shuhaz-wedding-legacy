@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { Reveal } from "./Reveal";
-import { User, Phone, Users, MessageSquare } from "lucide-react";
+import { User, Users } from "lucide-react";
 
 export function RsvpForm() {
   const [attending, setAttending] = useState<"yes" | "no">("yes");
@@ -11,9 +11,7 @@ export function RsvpForm() {
     const fd = new FormData(e.currentTarget);
     const rsvp = {
       name: String(fd.get("name") ?? ""),
-      phone: String(fd.get("phone") ?? ""),
       guests: String(fd.get("guests") ?? "1"),
-      message: String(fd.get("message") ?? ""),
       attending,
       ts: Date.now(),
     };
@@ -32,7 +30,9 @@ export function RsvpForm() {
         <div className="absolute inset-3 pointer-events-none rounded-[1.25rem] border border-gold/10" />
         <div className="font-script text-5xl text-gold-gradient py-1">Thank you</div>
         <p className="mt-4 text-xs text-muted-foreground leading-relaxed">
-          Your response has been recorded. We look forward to sharing this blessed day with you.
+          {attending === "yes" 
+            ? "Your response has been recorded. We look forward to sharing this blessed day with you."
+            : "Thank you for letting us know. You will be missed!"}
         </p>
       </Reveal>
     );
@@ -51,25 +51,7 @@ export function RsvpForm() {
 
       <div className="relative z-10 grid gap-6 text-left">
         <Field label="Name" name="name" icon={<User size={13} />} required />
-        <Field label="Phone" name="phone" type="tel" icon={<Phone size={13} />} required />
         <Field label="Number of Guests" name="guests" type="number" defaultValue="1" min="1" icon={<Users size={13} />} />
-        
-        <div>
-          <label className="mb-2 block text-[10px] tracking-luxury text-gold uppercase font-medium">
-            Message
-          </label>
-          <div className="relative flex items-center">
-            <span className="absolute left-0 text-gold/60 pb-1">
-              <MessageSquare size={13} />
-            </span>
-            <textarea
-              name="message"
-              rows={3}
-              placeholder="Leave a message..."
-              className="w-full resize-none border-b border-gold/20 bg-transparent pl-6 pr-1 py-1 text-sm text-ink outline-none transition-all duration-300 focus:border-gold focus:bg-gold/[0.02]"
-            />
-          </div>
-        </div>
         
         <div>
           <div className="mb-4 text-[10px] tracking-luxury text-gold uppercase font-medium">
