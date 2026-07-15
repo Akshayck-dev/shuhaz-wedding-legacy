@@ -7,8 +7,6 @@ import floralTL from "@/assets/floral-tl.png";
 import floralBR from "@/assets/floral-br.png";
 import heroBg from "@/assets/ChatGPT Image Jul 14, 2026, 10_09_24 PM.png";
 import heroBgDesktop from "@/assets/ChatGPT Image Jul 14, 2026, 10_11_34 PM.png";
-import eventBg from "@/assets/event-bg.png";
-import eventBgDesktop from "@/assets/event-bg.jpg";
 import rose from "@/assets/rose.png";
 import cardImg from "@/assets/card.jpeg";
 
@@ -603,13 +601,7 @@ function AddToCalendarButton() {
 
 function EventSection() {
   return (
-    <section className="relative flex items-center justify-center py-12 sm:py-16 overflow-hidden" id="event">
-      <div className="absolute inset-0 overflow-hidden">
-        <picture>
-          <source media="(min-width: 640px)" srcSet={eventBgDesktop} />
-          <img src={eventBg} alt="" className="h-full w-full object-cover" />
-        </picture>
-      </div>
+    <section className="relative flex items-center justify-center py-12 sm:py-16 overflow-hidden bg-[#FDFBF7]" id="event">
 
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="relative z-10 px-6 text-center w-full max-w-md mx-auto flex flex-col items-center">
         <div className="mb-8 sm:mb-12">
@@ -618,8 +610,6 @@ function EventSection() {
           </span>
         </div>
         
-        {/* Spacer for where the rings are in the background image */}
-        <div className="h-20 sm:h-28"></div>
         <h4 className="font-serif-display text-sm sm:text-base text-ink uppercase tracking-widest text-gold-gradient font-semibold">
           SUNDAY
         </h4>
