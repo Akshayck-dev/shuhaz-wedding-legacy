@@ -47,10 +47,11 @@ function Index() {
   const [showMarquee, setShowMarquee] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
-  useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 1600);
-    return () => clearTimeout(t);
-  }, []);
+  function handleEnter() {
+    // Dispatch event so MusicToggle starts audio on this real user interaction
+    document.dispatchEvent(new Event("wedding:enter"));
+    setLoading(false);
+  }
 
   useEffect(() => {
     return scrollY.on("change", (latest) => {
@@ -96,7 +97,7 @@ function Index() {
 
   return (
     <div className="relative min-h-screen bg-background">
-      <AnimatePresence>{loading && <Loader />}</AnimatePresence>
+      <AnimatePresence>{loading && <Loader onEnter={handleEnter} />}</AnimatePresence>
       <MusicToggle />
 
 
@@ -251,14 +252,14 @@ function Index() {
 }
 
 /* ---------------- Loader ---------------- */
-function Loader() {
+function Loader({ onEnter }: { onEnter: () => void }) {
   return (
     <motion.div
       exit={{ opacity: 0 }}
       transition={{ duration: 1 }}
       className="fixed inset-0 z-[100] flex items-center justify-center bg-cream"
     >
-      <div className="text-center">
+      <div className="text-center px-6">
         <motion.img
           src={rose}
           alt=""
@@ -283,6 +284,17 @@ function Loader() {
         >
           A luxury wedding experience
         </motion.div>
+
+        {/* Tap to Enter — required for browser audio autoplay */}
+        <motion.button
+          onClick={onEnter}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.4, duration: 0.7 }}
+          className="mt-10 inline-flex items-center gap-2 rounded-full border border-gold/50 bg-gold/10 px-8 py-3 text-[10px] font-semibold tracking-[0.25em] text-ink uppercase backdrop-blur hover:bg-gold hover:text-white transition-all duration-300 shadow-sm"
+        >
+          <span>♪</span> Tap to Enter
+        </motion.button>
       </div>
     </motion.div>
   );
