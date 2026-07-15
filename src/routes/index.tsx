@@ -36,7 +36,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Suhana & Mohammed — Wedding · 9 August 2026" },
-      { name: "description", content: "The family invites you to the wedding of Dr. Suhana Suaibu & Mohammed Millay." },
+      { name: "description", content: "The family invites you to the wedding of Dr. Suhana Suaibu & Mohammed Millayyjis." },
     ],
   }),
 });
@@ -317,9 +317,6 @@ function Hero({ onOpen }: { onOpen: () => void }) {
           <h1 className="font-serif-display text-2xl sm:text-3xl leading-[1.2] font-bold tracking-wide text-ink uppercase mt-2">
             DR. SUHANA SUAIBU
           </h1>
-          <p className="text-[9px] tracking-widest text-muted-foreground mt-1.5 font-serif italic">
-            Abdul Saleem kz / Haseena saleem
-          </p>
 
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -333,11 +330,8 @@ function Hero({ onOpen }: { onOpen: () => void }) {
           </motion.div>
 
           <h1 className="font-serif-display text-2xl sm:text-3xl leading-[1.2] font-bold tracking-wide text-ink uppercase mt-2">
-            MOHAMMED MILLAY
+            MOHAMMED MILLAYYJIS
           </h1>
-          <p className="text-[9px] tracking-widest text-muted-foreground mt-1.5 font-serif italic">
-            Ismayil p / Thasni kt
-          </p>
 
           <motion.p
             initial={{ opacity: 0 }}
@@ -530,7 +524,7 @@ function CountdownSection() {
             </div>
 
             <h4 className="font-serif-display text-2xl sm:text-3xl text-ink uppercase tracking-wide">
-              Mohammed Millay
+              Mohammed Millayyjis
             </h4>
             <p className="font-serif italic text-[11px] sm:text-xs text-muted-foreground mt-3">
               S/o V. Imbichi Mammu and Fousiya PM
@@ -590,7 +584,7 @@ function EventSection() {
         
         <div className="mt-8 mb-16">
           <a
-            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Suhana+%26+Mohammed+Wedding&dates=20260809T063000Z/20260809T083000Z&details=The+family+invites+you+to+the+wedding+of+Dr.+Suhana+Suaibu+%26+Mohammed+Millay+at+Shasa.&location=Shasa,+Behind+Crystal+Plaza,+Arakkinar"
+            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Suhana+%26+Mohammed+Wedding&dates=20260809T063000Z/20260809T083000Z&details=The+family+invites+you+to+the+wedding+of+Dr.+Suhana+Suaibu+%26+Mohammed+Millayyjis+at+Shasa.&location=Shasa,+Behind+Crystal+Plaza,+Arakkinar"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-[#FDFBF7]/80 px-8 py-3 text-[9px] font-bold tracking-[0.2em] text-ink uppercase shadow-sm hover:bg-gold hover:text-white transition-all duration-300 backdrop-blur-md"
@@ -708,7 +702,7 @@ function FamilySection() {
       <Reveal className="text-center">
         <SectionLabel>With Love From</SectionLabel>
         <h3 className="mt-4 font-serif-display text-3xl font-light text-ink sm:text-5xl">
-          The Family
+          Shasa Family
         </h3>
       </Reveal>
       <Reveal delay={0.1} className="mt-12">
@@ -768,7 +762,7 @@ function Footer() {
       <Reveal className="relative z-10">
         <Ornament />
         <p className="mt-8 font-script text-4xl text-gold-gradient sm:text-5xl">With Love,</p>
-        <p className="mt-4 font-serif-display text-2xl text-ink sm:text-3xl">The Family</p>
+        <p className="mt-4 font-serif-display text-2xl text-ink sm:text-3xl">Shasa Family</p>
         <p className="mt-10 text-[10px] tracking-luxury text-muted-foreground uppercase">
           Suhana &amp; Mohammed · 09 · 08 · 2026
         </p>
