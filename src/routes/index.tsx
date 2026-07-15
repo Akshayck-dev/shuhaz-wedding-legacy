@@ -547,7 +547,48 @@ function CountdownSection() {
   );
 }
 
+/* ---------------- Add to Calendar Button ---------------- */
+function AddToCalendarButton() {
+  function handleAddToCalendar() {
+    const icsContent = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//Suhana & Midlaj Wedding//EN",
+      "BEGIN:VEVENT",
+      "UID:suhana-midlaj-wedding-2026@shuhaz",
+      "DTSTART:20260809T063000Z",
+      "DTEND:20260809T083000Z",
+      "SUMMARY:Suhana & Midlaj Wedding",
+      "DESCRIPTION:The family invites you to the wedding of Dr. Suhana Suaibu & Mohammed Midlaj",
+      "LOCATION:Shasa\\, Behind Crystal Plaza\\, Arakkinar",
+      "STATUS:CONFIRMED",
+      "END:VEVENT",
+      "END:VCALENDAR",
+    ].join("\r\n");
+
+    const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "suhana-midlaj-wedding.ics";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
+
+  return (
+    <button
+      onClick={handleAddToCalendar}
+      className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-[#FDFBF7]/80 px-8 py-3 text-[9px] font-bold tracking-[0.2em] text-ink uppercase shadow-sm hover:bg-gold hover:text-white transition-all duration-300 backdrop-blur-md"
+    >
+      <Calendar size={12} className="-mt-0.5" /> Add to Calendar
+    </button>
+  );
+}
+
 /* ---------------- Event ---------------- */
+
 function EventSection() {
   return (
     <section className="relative flex items-center justify-center py-12 sm:py-16 overflow-hidden" id="event">
@@ -591,14 +632,7 @@ function EventSection() {
         </p>
         
         <div className="mt-8 mb-16">
-          <a
-            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Suhana+%26+Midlaj+Wedding&dates=20260809T063000Z/20260809T083000Z&details=The+family+invites+you+to+the+wedding+of+Dr.+Suhana+Suaibu+%26+Mohammed+Midlaj+at+Shasa.&location=Shasa,+Behind+Crystal+Plaza,+Arakkinar"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-[#FDFBF7]/80 px-8 py-3 text-[9px] font-bold tracking-[0.2em] text-ink uppercase shadow-sm hover:bg-gold hover:text-white transition-all duration-300 backdrop-blur-md"
-          >
-            <Navigation size={12} className="-mt-0.5" /> Directions
-          </a>
+          <AddToCalendarButton />
         </div>
       </motion.div>
 
