@@ -51,7 +51,6 @@ export function RsvpForm() {
 
       <div className="relative z-10 grid gap-6 text-left">
         <Field label="Name" name="name" icon={<User size={13} />} required />
-        <Field label="Number of Guests" name="guests" type="number" defaultValue="1" min="1" icon={<Users size={13} />} />
         
         <div>
           <div className="mb-4 text-[10px] tracking-luxury text-gold uppercase font-medium">
@@ -74,6 +73,10 @@ export function RsvpForm() {
             ))}
           </div>
         </div>
+
+        {attending === "yes" && (
+          <Field label="Number of Guests" name="guests" type="number" defaultValue="1" min="1" icon={<Users size={13} />} />
+        )}
       </div>
       
       <button
