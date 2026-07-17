@@ -77,19 +77,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Suhana ❤️ Midlaj | Wedding Invitation" },
-      { name: "description", content: "Together with our families, we warmly invite you to celebrate our wedding." },
+      { title: "Suhana & Midlaj — Wedding · 9 August 2026" },
+      { name: "description", content: "The family invites you to the wedding of Dr. Suhana Suaibu & Midlaj." },
       // Open Graph
-      { property: "og:title", content: "Suhana ❤️ Midlaj | Wedding Invitation" },
-      { property: "og:description", content: "Together with our families, we warmly invite you to celebrate our wedding." },
+      { property: "og:title", content: "Suhana & Midlaj — Wedding · 9 August 2026" },
+      { property: "og:description", content: "The family invites you to the wedding of Dr. Suhana Suaibu & Midlaj." },
       { property: "og:image", content: "https://www.suhanawedsmidlaj.in/og-image.jpg" },
       { property: "og:url", content: "https://www.suhanawedsmidlaj.in" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Suhana Weds Midlaj" },
       // Twitter Card
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Suhana ❤️ Midlaj | Wedding Invitation" },
-      { name: "twitter:description", content: "Together with our families, we warmly invite you to celebrate our wedding." },
+      { name: "twitter:title", content: "Suhana & Midlaj — Wedding · 9 August 2026" },
+      { name: "twitter:description", content: "The family invites you to the wedding of Dr. Suhana Suaibu & Midlaj." },
       { name: "twitter:image", content: "https://www.suhanawedsmidlaj.in/og-image.jpg" },
     ],
     links: [
