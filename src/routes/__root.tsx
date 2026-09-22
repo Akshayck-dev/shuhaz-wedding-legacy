@@ -76,26 +76,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Suhana & Midlaj — Wedding · 9 August 2026" },
-      { name: "description", content: "The family invites you to the wedding of Dr. Suhana Suaibu & Midlaj." },
+      { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover" },
+      { title: "Shreyasi & Purushottam — Wedding · 9 November 2026" },
+      { name: "description", content: "The family invites you to the wedding of Shreyasi & Purushottam." },
       // Open Graph
-      { property: "og:title", content: "Suhana & Midlaj — Wedding · 9 August 2026" },
-      { property: "og:description", content: "The family invites you to the wedding of Dr. Suhana Suaibu & Midlaj." },
-      { property: "og:image", content: "https://www.suhanawedsmidlaj.in/og-image.jpg" },
-      { property: "og:url", content: "https://www.suhanawedsmidlaj.in" },
+      { property: "og:title", content: "Shreyasi & Purushottam — Wedding · 9 November 2026" },
+      { property: "og:description", content: "The family invites you to the wedding of Shreyasi & Purushottam." },
+      { property: "og:image", content: "https://www.shreyasiwedspurushottam.in/og-image.jpg" },
+      { property: "og:url", content: "https://www.shreyasiwedspurushottam.in" },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "Suhana Weds Midlaj" },
+      { property: "og:site_name", content: "Shreyasi Weds Purushottam" },
       // Twitter Card
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Suhana & Midlaj — Wedding · 9 August 2026" },
-      { name: "twitter:description", content: "The family invites you to the wedding of Dr. Suhana Suaibu & Midlaj." },
-      { name: "twitter:image", content: "https://www.suhanawedsmidlaj.in/og-image.jpg" },
+      { name: "twitter:title", content: "Shreyasi & Purushottam — Wedding · 9 November 2026" },
+      { name: "twitter:description", content: "The family invites you to the wedding of Shreyasi & Purushottam." },
+      { name: "twitter:image", content: "https://www.shreyasiwedspurushottam.in/og-image.jpg" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
-      { rel: "canonical", href: "https://www.suhanawedsmidlaj.in" },
+      { rel: "canonical", href: "https://www.shreyasiwedspurushottam.in" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -116,7 +116,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="overflow-x-hidden">
         {children}
         <Scripts />
       </body>
