@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Music2, VolumeX } from "lucide-react";
-import bgMusic from "@/assets/RHTDM-Rain-Theme.mp3.mpeg";
 
-const SRC = bgMusic;
+const SRC = "/RHTDM-Rain-Theme.mp3";
 
 export function MusicToggle() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
