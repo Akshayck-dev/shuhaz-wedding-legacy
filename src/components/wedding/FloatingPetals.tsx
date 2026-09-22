@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import roseImg from "@/assets/rose.webp";
 
 export function FloatingPetals({ count = 14 }: { count?: number }) {
   const petals = useMemo(
@@ -9,12 +8,9 @@ export function FloatingPetals({ count = 14 }: { count?: number }) {
         left: Math.random() * 100,
         delay: Math.random() * 20,
         duration: 18 + Math.random() * 18,
-        size: 16 + Math.random() * 24, // Increased size for the rose images
+        size: 8 + Math.random() * 14,
         drift: `${(Math.random() - 0.5) * 200}px`,
-        opacity: 0.6 + Math.random() * 0.4, // Higher opacity for images
-        rotationStart: Math.random() * 360,
-        rotationEnd: Math.random() * 360 + 360, // Spin while falling
-        hueRotate: Math.random() * 360, // Random hue shift for different colors
+        opacity: 0.25 + Math.random() * 0.35,
       })),
     [count],
   );
@@ -22,20 +18,18 @@ export function FloatingPetals({ count = 14 }: { count?: number }) {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
       {petals.map((p) => (
-        <img
+        <span
           key={p.id}
-          src={roseImg}
-          alt=""
-          className="animate-fall absolute top-0 block object-contain"
+          className="animate-fall absolute top-0 block rounded-full"
           style={{
             left: `${p.left}%`,
             width: p.size,
             height: p.size,
+            background:
+              "radial-gradient(circle at 30% 30%, oklch(0.95 0.04 80), oklch(0.78 0.09 70) 70%, transparent)",
             animationDuration: `${p.duration}s`,
             animationDelay: `-${p.delay}s`,
             opacity: p.opacity,
-            transform: `rotate(${p.rotationStart}deg)`,
-            filter: `hue-rotate(${p.hueRotate}deg)`,
             ["--drift" as never]: p.drift,
           }}
         />

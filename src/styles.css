@@ -33,53 +33,50 @@
 
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
-  --color-maroon: var(--maroon);
-  --color-maroon-deep: var(--maroon-deep);
-  --color-cream: var(--cream);
-  --color-ivory: var(--ivory);
+  --color-rose: var(--rose);
+  --color-sage: var(--sage);
   --color-ink: var(--ink);
+  --color-cream: var(--cream);
 
   --font-serif: "Playfair Display", "Georgia", serif;
   --font-script: "Alex Brush", "Great Vibes", cursive;
   --font-sans: "Montserrat", "Inter", sans-serif;
   --font-arabic: "Amiri", serif;
 
-  --shadow-luxury: 0 20px 60px -15px rgba(0, 0, 0, 0.5);
-  --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
-  --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F5EBD5 50%, #C9A227 100%);
-  --gradient-maroon: linear-gradient(135deg, #650D1B 0%, #4A0715 100%);
+  --shadow-luxury: 0 30px 80px -20px oklch(0.55 0.08 60 / 0.18);
+  --shadow-soft: 0 10px 40px -12px oklch(0.55 0.05 60 / 0.15);
+  --gradient-gold: linear-gradient(135deg, oklch(0.72 0.11 75) 0%, oklch(0.86 0.09 82) 50%, oklch(0.68 0.13 65) 100%);
 }
 
 :root {
   --radius: 0.5rem;
 
-  --maroon: #4A0715;
-  --maroon-deep: #650D1B;
-  --gold: #D4AF37;
-  --gold-soft: #E7C66A;
-  --cream: #F5EBD5;
-  --ivory: #FFF8E7;
+  --cream: oklch(0.975 0.012 85);
+  --background: oklch(0.985 0.01 80); /* Soft light beige #FDFBF7-ish */
+  --foreground: oklch(0.25 0.03 50); /* Dark brown-ink */
+  --ink: oklch(0.20 0.02 50);
 
-  --background: var(--maroon);
-  --foreground: var(--ivory);
-  --ink: var(--ivory);
+  --gold: oklch(0.65 0.13 65); /* Richer gold */
+  --gold-soft: oklch(0.80 0.09 75);
+  --rose: oklch(0.45 0.08 350);
+  --sage: oklch(0.48 0.05 145);
 
-  --card: var(--maroon-deep);
-  --card-foreground: var(--ivory);
-  --popover: var(--maroon-deep);
-  --popover-foreground: var(--ivory);
+  --card: oklch(0.99 0.008 85);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.99 0.008 85);
+  --popover-foreground: var(--foreground);
   --primary: var(--gold);
-  --primary-foreground: var(--maroon);
-  --secondary: #7A1727;
-  --secondary-foreground: var(--ivory);
-  --muted: #7A1727;
-  --muted-foreground: #D4AF37;
-  --accent: #7A1727;
-  --accent-foreground: var(--ivory);
-  --destructive: #990000;
-  --destructive-foreground: var(--ivory);
-  --border: rgba(212, 175, 55, 0.3); /* Gold with opacity */
-  --input: rgba(212, 175, 55, 0.3);
+  --primary-foreground: oklch(0.98 0.008 85);
+  --secondary: oklch(0.94 0.015 80);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.94 0.015 80);
+  --muted-foreground: oklch(0.5 0.03 65);
+  --accent: oklch(0.92 0.02 80);
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(0.55 0.18 25);
+  --destructive-foreground: oklch(0.98 0.008 85);
+  --border: oklch(0.85 0.03 75 / 0.5);
+  --input: oklch(0.85 0.03 75 / 0.5);
   --ring: var(--gold);
 }
 
@@ -95,12 +92,8 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-weight: 300;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
     -webkit-font-smoothing: antialiased;
-    /* Subtle geometric jaali pattern overlay */
-    background-image: radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px), radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
-    background-position: 0 0, 20px 20px;
   }
 }
 
@@ -122,36 +115,21 @@
   color: transparent;
 }
 
-/* For printing / printed card look */
-@utility bg-printed-card {
-  background-color: var(--color-ivory);
-  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
-  color: var(--color-maroon);
-}
-
-/* Mughal Arch Frame shape */
-@utility arch-frame {
-  border-top-left-radius: 50% 20%;
-  border-top-right-radius: 50% 20%;
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-}
-
 @utility glass {
-  background: rgba(101, 13, 27, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  background: oklch(1 0 0 / 0.55);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid oklch(1 0 0 / 0.6);
   box-shadow: var(--shadow-soft);
 }
 
 @utility tracking-luxury {
-  letter-spacing: 0.25em;
+  letter-spacing: 0.35em;
 }
 
 @keyframes float-slow {
   0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-15px) rotate(2deg); }
+  50% { transform: translateY(-20px) rotate(3deg); }
 }
 @keyframes shimmer {
   0% { background-position: -200% 0; }
@@ -168,7 +146,7 @@
 }
 @keyframes ken-burns {
   0%, 100% { transform: scale(1.02) translate(0px, 0px); }
-  50% { transform: scale(1.08) translate(-5px, -3px); }
+  50% { transform: scale(1.10) translate(-10px, -5px); }
 }
 
 @utility animate-float-slow {
@@ -182,11 +160,5 @@
 }
 @utility safe-top {
   padding-top: max(0.375rem, env(safe-area-inset-top));
-  height: calc(3rem + env(safe-area-inset-top));
-}
-
-html, body {
-  overflow-x: hidden;
-  max-width: 100%;
-  width: 100%;
+  height: calc(2.5rem + env(safe-area-inset-top));
 }

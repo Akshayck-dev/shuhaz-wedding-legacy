@@ -3,68 +3,55 @@ import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { MapPin, Navigation, Calendar, Clock, ZoomIn, Download, X } from "lucide-react";
 
-import heroBg from "@/assets/media-generation-wedding-bg-pastel-watercolor-0-9d4d1e1e-3b4a-47b2-b37e-f67fa2d69e34 copy.webp";
-import heroBgDesktop from "@/assets/media-generation-wedding-bg-pastel-watercolor-0-9d4d1e1e-3b4a-47b2-b37e-f67fa2d69e34 copy.webp";
-import rose from "@/assets/rose.webp";
-import cardImg from "@/assets/card.webp";
-import ganeshaImg from "@/assets/ChatGPT Image Sep 21, 2026, 12_43_39 PM.webp";
-import revealBg from "@/assets/2f226d93-2b02-4658-a101-1ee9c8668a5a.webp";
-import preWeddingBg from "@/assets/pre_wedding_bg.webp";
-import weddingBg from "@/assets/wedding_bg.webp";
+import floralTL from "@/assets/floral-tl.png";
+import floralBR from "@/assets/floral-br.png";
+import heroBg from "@/assets/ChatGPT Image Jul 14, 2026, 10_09_24 PM.png";
+import heroBgDesktop from "@/assets/ChatGPT Image Jul 14, 2026, 10_11_34 PM.png";
+import rose from "@/assets/rose.png";
+import cardImg from "@/assets/card.jpeg";
+
 import { FloatingPetals } from "@/components/wedding/FloatingPetals";
 import { FloatingButterflies } from "@/components/wedding/FloatingButterflies";
 import { Ornament } from "@/components/wedding/Ornament";
 import { Reveal } from "@/components/wedding/Reveal";
 import { Countdown } from "@/components/wedding/Countdown";
-import { EventPosters } from "@/components/wedding/EventPosters";
 import { Gallery } from "@/components/wedding/Gallery";
 import { RsvpForm } from "@/components/wedding/RsvpForm";
 import { MusicToggle } from "@/components/wedding/MusicToggle";
-import { EnvelopeReveal } from "@/components/wedding/EnvelopeReveal";
-import { EnvelopeDateReveal } from "@/components/wedding/EnvelopeDateReveal";
-import { OurMomentsCarousel } from "@/components/wedding/OurMomentsCarousel";
-import Confetti from "react-confetti";
-import { useWindowSize } from "react-use";
 
 const MAP_URL =
-  "https://www.google.com/maps/place/Royal+Orchid+Central+Bengaluru/@12.974846,77.612837,17z";
+  "https://www.google.com/maps?q=11.202179908752441,75.80118560791016&z=17&hl=en";
 const MAP_EMBED =
-  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.953185887163!2d77.6128373745047!3d12.974846087340813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae16846913b3b1%3A0xb60950daef881157!2sRoyal%20Orchid%20Central%20Bengaluru!5e0!3m2!1sen!2sin!4v1790015072548!5m2!1sen!2sin";
+  "https://www.google.com/maps?q=11.202179908752441,75.80118560791016&z=17&hl=en&output=embed";
 
-const WEDDING_MAP_URL =
-  "https://www.google.com/maps/place/The+Ritz-Carlton+Bangalore/@12.9716,77.6033,17z";
-const WEDDING_APPLE_MAPS_URL =
-  "https://maps.apple.com/?address=No.+99+Residency+Road,+Bengaluru,+Karnataka+560025,+India&ll=12.9716,77.6033&q=The+Ritz-Carlton+Bangalore";
-
-const PRE_WEDDING_APPLE_MAPS_URL =
-  "https://maps.apple.com/?address=47/1+Dickenson+Road,+Manipal+Centre,+Bengaluru,+Karnataka+560042,+India&ll=12.974846,77.612837&q=Royal+Orchid+Central";
-
-const PRE_WEDDING_GOOGLE_CALENDAR_URL =
-  "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pre-Wedding+Celebrations+-+Shreyasi+%26+Purushottam&dates=20261123T123000Z/20261123T173000Z&details=Join+us+for+Haldi,+Mehendi,+and+Sangeet.&location=Royal+Orchid+Central,+Bengaluru";
-const PRE_WEDDING_APPLE_CALENDAR_URL =
-  "data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ADTSTART:20261123T123000Z%0ADTEND:20261123T173000Z%0ASUMMARY:Pre-Wedding Celebrations - Shreyasi %26 Purushottam%0ADESCRIPTION:Join us for Haldi, Mehendi, and Sangeet.%0ALOCATION:Royal Orchid Central, Bengaluru%0AEND:VEVENT%0AEND:VCALENDAR";
-
-const GOOGLE_CALENDAR_URL =
-  "https://calendar.google.com/calendar/render?action=TEMPLATE&text=The+Wedding+-+Shreyasi+%26+Purushottam&dates=20261125T133000Z/20261125T173000Z&details=Join+us+for+our+wedding+celebration.&location=The+Ritz-Carlton,+Bengaluru";
-const APPLE_CALENDAR_URL =
-  "data:text/calendar;charset=utf8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ADTSTART:20261125T133000Z%0ADTEND:20261125T173000Z%0ASUMMARY:The Wedding - Shreyasi %26 Purushottam%0ADESCRIPTION:Join us for our wedding celebration.%0ALOCATION:The Ritz-Carlton, Bengaluru%0AEND:VEVENT%0AEND:VCALENDAR";
-
-
+const family = [
+  "Naju", "Anu", "Sabani", "Shamsi", "Naufan", "Fabi", "Faaz",
+  "Hami", "Faiza", "Falyn", "Hanym", "Heizan", "Neva",
+];
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Shreyasi & Purushottam — Wedding · 9 November 2026" },
-      { name: "description", content: "The family invites you to the wedding of Shreyasi & Purushottam." },
+      { title: "Suhana & Midlaj — Wedding · 9 August 2026" },
+      { name: "description", content: "The family invites you to the wedding of Dr. Suhana Suaibu & Midlaj." },
     ],
   }),
 });
 
 function Index() {
+  const [loading, setLoading] = useState(true);
   const { scrollY } = useScroll();
   const [showMarquee, setShowMarquee] = useState(false);
-  const [showScrollTop, setShowScrollTop] = useState(false);  useEffect(() => {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  function handleEnter() {
+    // Dispatch event so MusicToggle starts audio on this real user interaction
+    document.dispatchEvent(new Event("wedding:enter"));
+    setLoading(false);
+  }
+
+  useEffect(() => {
     return scrollY.on("change", (latest) => {
       // Show marquee if scrolled down past 400px
       if (latest > 400) {
@@ -107,8 +94,8 @@ function Index() {
   };
 
   return (
-    <div className="relative min-h-screen bg-background overflow-x-hidden w-full">
-      <EnvelopeReveal />
+    <div className="relative min-h-screen bg-background">
+      <AnimatePresence>{loading && <Loader onEnter={handleEnter} />}</AnimatePresence>
       <MusicToggle />
 
 
@@ -121,7 +108,7 @@ function Index() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -60, opacity: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between border-b border-gold/30 bg-maroon/95 px-6 backdrop-blur-md safe-top shadow-soft"
+            className="fixed top-0 left-0 right-0 z-50 flex h-14 items-center justify-between border-b border-gold/10 bg-cream/90 px-6 backdrop-blur-md safe-top shadow-soft"
           >
             {/* Calligraphy Initials logo */}
             <div 
@@ -161,7 +148,7 @@ function Index() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-maroon/95 backdrop-blur-lg"
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-cream/95 backdrop-blur-lg"
           >
             {/* Decorative floral motifs background */}
             <div className="absolute inset-4 pointer-events-none rounded-[1.5rem] border border-gold/10" />
@@ -176,43 +163,43 @@ function Index() {
               
               <button 
                 onClick={() => scrollToSection("invitation")}
-                className="font-serif-display text-2xl tracking-widest text-ivory hover:text-gold transition duration-300 uppercase"
+                className="font-serif-display text-2xl tracking-widest text-ink hover:text-gold transition duration-300 uppercase"
               >
                 Invitation Card
               </button>
               <button 
                 onClick={() => scrollToSection("countdown")}
-                className="font-serif-display text-2xl tracking-widest text-ivory hover:text-gold transition duration-300 uppercase"
+                className="font-serif-display text-2xl tracking-widest text-ink hover:text-gold transition duration-300 uppercase"
               >
                 Countdown
               </button>
               <button 
                 onClick={() => scrollToSection("event")}
-                className="font-serif-display text-2xl tracking-widest text-ivory hover:text-gold transition duration-300 uppercase"
+                className="font-serif-display text-2xl tracking-widest text-ink hover:text-gold transition duration-300 uppercase"
               >
                 Event Details
               </button>
               <button 
                 onClick={() => scrollToSection("venue")}
-                className="font-serif-display text-2xl tracking-widest text-ivory hover:text-gold transition duration-300 uppercase"
+                className="font-serif-display text-2xl tracking-widest text-ink hover:text-gold transition duration-300 uppercase"
               >
                 Location &amp; Venue
               </button>
               <button 
                 onClick={() => scrollToSection("family")}
-                className="font-serif-display text-2xl tracking-widest text-ivory hover:text-gold transition duration-300 uppercase"
+                className="font-serif-display text-2xl tracking-widest text-ink hover:text-gold transition duration-300 uppercase"
               >
                 The Family
               </button>
               <button 
                 onClick={() => scrollToSection("rsvp")}
-                className="font-serif-display text-2xl tracking-widest text-ivory hover:text-gold transition duration-300 uppercase"
+                className="font-serif-display text-2xl tracking-widest text-ink hover:text-gold transition duration-300 uppercase"
               >
                 RSVP
               </button>
 
               <Ornament className="mt-2" />
-              <span className="font-script text-xl text-gold-gradient tracking-wide mt-2">Shreyasi &amp; Purushottam</span>
+              <span className="font-script text-xl text-gold-gradient tracking-wide mt-2">Suhana &amp; Midlaj</span>
             </div>
           </motion.div>
         )}
@@ -225,9 +212,14 @@ function Index() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.3 }}
       >
-        <RevealSection />
-        <OurMomentsCarousel />
+        <EventSection />
+        <CountdownSection />
+        <VenueSection />
+        <Invitation />
+        <Blessing />
+        <FamilySection />
         <RsvpSection />
+        <Footer />
       </motion.main>
 
 
@@ -235,155 +227,132 @@ function Index() {
   );
 }
 
+/* ---------------- Loader ---------------- */
+function Loader({ onEnter }: { onEnter: () => void }) {
+  return (
+    <motion.div
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-cream"
+    >
+      <div className="text-center px-6">
+        <motion.img
+          src={rose}
+          alt=""
+          className="mx-auto h-24 w-24"
+          initial={{ scale: 0.6, opacity: 0, rotate: -15 }}
+          animate={{ scale: 1, opacity: 1, rotate: 0 }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        />
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+          className="mt-6 font-script text-4xl text-gold-gradient"
+        >
+          Suhana & Midlaj
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 0.6 }}
+          className="mt-3 text-[10px] tracking-luxury text-muted-foreground uppercase"
+        >
+          A luxury wedding experience
+        </motion.div>
+
+        {/* Tap to Enter — required for browser audio autoplay */}
+        <motion.button
+          onClick={onEnter}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.4, duration: 0.7 }}
+          className="mt-10 inline-flex items-center gap-2 rounded-full border border-gold/50 bg-gold/10 px-8 py-3 text-[10px] font-semibold tracking-[0.25em] text-ink uppercase backdrop-blur hover:bg-gold hover:text-white transition-all duration-300 shadow-sm"
+        >
+          <span>♪</span> Tap to Enter
+        </motion.button>
+      </div>
+    </motion.div>
+  );
+}
 
 /* ---------------- Hero ---------------- */
 function Hero({ onOpen }: { onOpen: () => void }) {
-  const { scrollY } = useScroll();
-  
-  // Parallax effects
-  const backgroundY = useTransform(scrollY, [0, 1000], ["0%", "40%"]);
-  const backgroundScale = useTransform(scrollY, [0, 1000], [1, 1.15]);
-  
-  // Foreground fade and shift
-  const foregroundOpacity = useTransform(scrollY, [0, 400], [1, 0]);
-  const foregroundY = useTransform(scrollY, [0, 400], ["0px", "-50px"]);
   return (
     <section className="relative h-[100svh] w-full overflow-hidden flex items-start justify-center">
-      {/* Background with Cinematic Parallax */}
-      <motion.div 
-        className="absolute inset-0"
-        style={{ y: backgroundY, scale: backgroundScale }}
-      >
+      {/* Background */}
+      <div className="absolute inset-0">
         <picture>
           <source media="(min-width: 640px)" srcSet={heroBgDesktop} />
           <img src={heroBg} alt="" className="h-full w-full object-cover animate-ken-burns" />
         </picture>
-      </motion.div>
-      
-
-
-      <FloatingPetals count={15} />
+      </div>
       <FloatingButterflies count={12} />
-      <motion.div 
-        className="absolute inset-4 sm:inset-6 z-10 border-2 border-gold/30 arch-frame pointer-events-none"
-        style={{ opacity: foregroundOpacity }}
-      ></motion.div>
-      
-      <motion.div 
-        className="relative z-10 w-full max-w-md mx-auto h-full flex flex-col items-center justify-start pt-[6vh] sm:pt-[8vh] px-4"
-        style={{ opacity: foregroundOpacity, y: foregroundY }}
-      >
-        {/* Ganesha illustration */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 2.2, duration: 1, ease: "easeOut" }}
-          className="flex flex-col items-center mb-3"
-        >
-          <img src={ganeshaImg} alt="Lord Ganesha" className="w-32 h-32 sm:w-40 sm:h-40 object-contain mb-2 drop-shadow-[0_2px_4px_rgba(255,255,255,0.5)]" />
-          <div className="flex items-center gap-2">
-            <span className="text-[14px] text-[#A67C43] opacity-60">||</span>
-            <span className="text-[20px] sm:text-[24px] text-[#7A5A29] italic font-serif tracking-[0.05em] drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]">Shree Ganeshaya Namah</span>
-            <span className="text-[10px] text-[#A67C43] opacity-60">||</span>
-          </div>
-        </motion.div>
 
-        {/* Small flourish divider */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2.4, duration: 1 }}
-          className="mb-4 text-[#A67C43]"
-        >
-          <svg width="40" height="10" viewBox="0 0 40 10" fill="currentColor"><path d="M20 5 L15 0 L15 4 L0 4 L0 6 L15 6 L15 10 Z M25 0 L20 5 L25 10 L25 6 L40 6 L40 4 L25 4 Z" opacity="0.6"/></svg>
-        </motion.div>
+      <div className="relative z-10 px-6 text-center w-full max-w-md mx-auto h-full flex flex-col items-center justify-start pt-[20vh]">
+        <div className="relative overflow-hidden bg-transparent p-8 pb-10 text-center w-full">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2.4, duration: 1 }}
+            className="mb-6 inline-block mx-auto"
+          >
+            <span className="rounded-sm border border-gold/20 px-4 py-1.5 text-[8px] font-semibold tracking-[0.3em] text-ink/70 uppercase">
+              Wedding
+            </span>
+          </motion.div>
 
-        {/* Invitation paragraph */}
-        <motion.div 
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.6, duration: 1, ease: "easeOut" }}
-          className="text-center mb-6 max-w-[320px]"
-        >
-          <p className="text-[10px] sm:text-[11px] leading-[2.2] text-[#5C4524] font-serif drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)] tracking-[0.15em] uppercase">
-            WITH HEARTS FULL OF JOY,<br/>
-            <span className="text-[#4A371C]">DR. AJAYA NATH AND LATE DR. ASHOK KUMAR</span><br/>
-            JOYFULLY INVITE YOU TO CELEBRATE THE WEDDING<br/>
-            FESTIVITIES OF THEIR DAUGHTER
-          </p>
-        </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.8, duration: 1, ease: "easeOut" }}
+            className="font-serif-display text-2xl sm:text-3xl leading-[1.2] font-bold tracking-wide text-ink uppercase mt-2">
+            DR. SUHANA SUAIBU
+          </motion.h1>
 
-        {/* Small diamond divider */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2.8, duration: 1 }}
-          className="mb-6 flex items-center justify-center gap-1 text-[#A67C43] opacity-70"
-        >
-          <div className="w-8 h-[1px] bg-current"></div>
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0 L10 5 L5 10 L0 5 Z"/></svg>
-          <div className="w-8 h-[1px] bg-current"></div>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 3.2, duration: 0.8 }}
+            className="my-4 flex items-center justify-center gap-4"
+          >
+            <div className="h-[1px] w-12 bg-gold/40"></div>
+            <span className="font-serif-display text-2xl font-light text-gold/80 italic">&amp;</span>
+            <div className="h-[1px] w-12 bg-gold/40"></div>
+          </motion.div>
 
-        {/* SHREYASI */}
-        <motion.div 
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 3.0, duration: 1, ease: "easeOut" }}
-          className="flex flex-col items-center text-center w-full mb-2"
-        >
-          <h1 className="font-script text-[64px] sm:text-[80px] text-[#5A3A3A] font-bold leading-[0.8] drop-shadow-[0_2px_2px_rgba(255,255,255,0.8)]">Shreyasi</h1>
-        </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 3.4, duration: 1, ease: "easeOut" }}
+            className="font-serif-display text-2xl sm:text-3xl leading-[1.2] font-bold tracking-wide text-ink uppercase mt-2">
+            MOHAMMED MIDLAJ
+          </motion.h1>
 
-        {/* & with leaves */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 3.1, duration: 1 }}
-          className="my-4 flex items-center gap-4"
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7A5A29" strokeWidth="1" opacity="0.6" className="scale-x-[-1]"><path d="M5 12 C10 12 12 5 12 5 C12 5 14 12 19 12 C14 12 12 19 12 19 C12 19 10 12 5 12 Z"/></svg>
-          <span className="font-script text-[32px] sm:text-[40px] text-[#4A371C] drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]">&amp;</span>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7A5A29" strokeWidth="1" opacity="0.6"><path d="M5 12 C10 12 12 5 12 5 C12 5 14 12 19 12 C14 12 12 19 12 19 C12 19 10 12 5 12 Z"/></svg>
-        </motion.div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 3.6, duration: 1 }}
+            className="mt-6 text-[10px] tracking-[0.2em] font-medium text-gold uppercase"
+          >
+            Sunday, August 9, 2026
+          </motion.p>
+        </div>
 
-        {/* PURUSHOTTAM */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 3.2, duration: 1, ease: "easeOut" }}
-          className="flex flex-col items-center text-center w-full mb-6"
-        >
-          <h1 className="font-script text-[64px] sm:text-[80px] text-[#5A3A3A] font-bold leading-[0.8] drop-shadow-[0_2px_2px_rgba(255,255,255,0.8)]">Purushottam</h1>
-        </motion.div>
-
-        {/* Parents */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 3.3, duration: 1 }}
-          className="flex flex-col items-center text-center mb-4"
-        >
-          <p className="text-[10px] sm:text-[11px] text-[#5C4524] font-serif font-bold mb-1 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)] tracking-[0.2em] uppercase">SON OF</p>
-          <p className="text-[10px] sm:text-[11px] leading-[1.8] text-[#5C4524] font-serif drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)] tracking-[0.15em] uppercase">
-            MRS. SARITA SINHA AND MR. SHASHANK SINHA
-          </p>
-        </motion.div>
-        
-        {/* Small diamond divider */}
-        {/* Small diamond divider */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 3.4, duration: 1 }}
-          className="mb-8 flex items-center justify-center gap-1 text-[#A67C43] opacity-70"
-        >
-          <div className="w-6 h-[1px] bg-current"></div>
-          <svg width="8" height="8" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0 L10 5 L5 10 L0 5 Z"/></svg>
-          <div className="w-6 h-[1px] bg-current"></div>
-        </motion.div>
-
-      </motion.div>
+        <div className="mt-auto absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center cursor-pointer select-none" onClick={onOpen}>
+          <span className="text-[9px] font-bold tracking-[0.3em] text-gold uppercase mb-2">SCROLL</span>
+          <motion.div
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ repeat: Infinity, duration: 1.5, repeatType: "mirror" }}
+            className="flex flex-col gap-0.5 text-gold/60"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 }
@@ -411,645 +380,102 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-/* ---------------- Reveal Section ---------------- */
-function RevealSection() {
-  const [isDateRevealed, setIsDateRevealed] = useState(false);
-  const [showConfetti, setShowConfetti] = useState(false);
-  const [showMapChoice, setShowMapChoice] = useState(false);
-  const [showPreWeddingMapChoice, setShowPreWeddingMapChoice] = useState(false);
-  const [showCalendarChoice, setShowCalendarChoice] = useState(false);
-  const [showPreWeddingCalendarChoice, setShowPreWeddingCalendarChoice] = useState(false);
-  const { width, height } = useWindowSize();
-  const { scrollY } = useScroll();
-  const foregroundOpacity = useTransform(scrollY, [0, 400], [1, 0]);
+/* ---------------- Invitation ---------------- */
+function Invitation() {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <Section id="reveal" className="pt-10 pb-8 flex flex-col items-center relative overflow-hidden">
-      <div className="relative z-10 w-full flex flex-col items-center">
-        <FloatingButterflies count={12} />
-      <motion.div 
-        className="absolute inset-4 sm:inset-6 z-10 border-2 border-gold/30 arch-frame pointer-events-none"
-        style={{ opacity: foregroundOpacity }}
-      ></motion.div>
+    <Section id="invitation" className="!pb-12">
+      <Reveal className="text-center">
+        <SectionLabel>Invitation</SectionLabel>
+        <Ornament className="mt-6" />
 
-      {/* Brief celebration confetti — subtle, fades after 3 seconds */}
-      {showConfetti && (
-        <div className="fixed inset-0 z-[100] pointer-events-none">
-          <Confetti 
-            width={width} 
-            height={height} 
-            numberOfPieces={120} 
-            recycle={false} 
-            gravity={0.12} 
-            initialVelocityY={25}
-            initialVelocityX={10}
-            tweenDuration={80}
-            colors={['#D4AF37', '#C9A227', '#FDFBF7', '#8B1A1A', '#650D1B']} 
-            confettiSource={{
-              x: width ? width / 2 - 40 : 0,
-              y: height ? height / 2 + 80 : 0,
-              w: 80,
-              h: 10
-            }}
-          />
-        </div>
-      )}
-
-      <Reveal className="w-full flex flex-col items-center z-20">
-        <EnvelopeDateReveal 
-          onOpenStart={() => {
-            setIsDateRevealed(true);
-            setShowConfetti(true);
-            setTimeout(() => setShowConfetti(false), 3000);
-          }}
-          onReveal={() => {
-            // Additional actions on full reveal if needed
-          }}
-          onClose={() => {
-            setIsDateRevealed(false);
-          }}
-        />
-
-        {/* Countdown Section - Only show when date is revealed */}
-        <AnimatePresence>
-          {isDateRevealed && (
-            <motion.div
-              initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
-              className="relative w-full max-w-[320px] mt-6 flex flex-col items-center bg-[#FAF6ED]/85 backdrop-blur-md px-6 pt-14 pb-8 rounded-t-[160px] rounded-b-xl border border-[#B8862D]/30 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)]"
-            >
-              {/* Inner thin border */}
-              <div className="absolute inset-2 border border-[#B8862D]/20 rounded-t-[150px] rounded-b-lg pointer-events-none"></div>
-              
-              {/* Floral Peak */}
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#B8862D" strokeWidth="1" opacity="0.6" className="absolute top-4 left-1/2 -translate-x-1/2">
-                <path d="M12 22C12 22 20 15.3 20 10.5C20 6.4 16.6 3 12.5 3C10.4 3 8.5 4 7.2 5.5C5.9 4 4 3 1.9 3C-2.2 3 -5.6 6.4 -5.6 10.5C-5.6 15.3 2.4 22 2.4 22H12Z" transform="translate(4.8,0) scale(0.6)"/>
-              </svg>
-
-              <h4 className="text-[12px] font-serif tracking-[0.3em] text-[#8B1A1A] uppercase mb-6 mt-2 text-center drop-shadow-sm font-bold">The Countdown Begins</h4>
-              <Countdown />
-              <div className="mt-6 flex items-center justify-center gap-2">
-                <svg className="w-3 h-3 text-[#A67C43]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5zm4 4h-2v-2h2v2zm0-4h-2V7h2v5z" opacity="0.8"/></svg>
-                <span className="font-script text-2xl sm:text-3xl text-[#5C4524]">Until our forever begins</span>
-                <svg className="w-3 h-3 text-[#A67C43]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5zm4 4h-2v-2h2v2zm0-4h-2V7h2v5z" opacity="0.8"/></svg>
+        {/* Physical Invitation Card Display */}
+        <div className="mt-12 max-w-md mx-auto">
+          <div 
+            onClick={() => setIsOpen(true)}
+            className="group relative cursor-pointer overflow-hidden rounded-2xl border border-gold/15 bg-white/50 p-2.5 backdrop-blur-md shadow-luxury transition hover:-translate-y-0.5 duration-300"
+          >
+            <div className="relative aspect-[1/1.4] w-full overflow-hidden rounded-xl">
+              <img 
+                src={cardImg} 
+                alt="Suhana & Midlaj Wedding Invitation Card" 
+                className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+              />
+              {/* Overlay with Zoom Icon */}
+              <div className="absolute inset-0 bg-ink/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 text-gold shadow-md">
+                  <ZoomIn size={22} />
+                </div>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Gold ornamental divider */}
-        <div className="w-full flex flex-col items-center mt-14 mb-2">
-          <div className="flex items-center gap-4 w-full max-w-[280px]">
-            <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent to-[#B8862D]/50"></div>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-[#B8862D]/60 shrink-0">
-              <path d="M12 2L14 8L20 8L15 12L17 18L12 14L7 18L9 12L4 8L10 8Z" fill="currentColor" opacity="0.7"/>
-            </svg>
-            <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent to-[#B8862D]/50"></div>
+            </div>
+            <div className="mt-3.5 flex items-center justify-between px-2 text-xs text-muted-foreground">
+              <span className="flex items-center gap-1.5 font-medium tracking-[0.05em] uppercase text-[10px] text-gold">
+                <ZoomIn size={12} /> Tap to view fullscreen
+              </span>
+              <a 
+                href={cardImg} 
+                download="Suhana-Midlaj-Wedding-Invitation-Card.jpeg"
+                onClick={(e) => e.stopPropagation()}
+                className="flex items-center gap-1 hover:text-gold transition font-medium tracking-[0.05em] uppercase text-[10px]"
+              >
+                <Download size={12} /> Save Card
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* 3D Event Posters Deck */}
-        <div className="w-full mt-2 z-20 mb-4">
-          <EventPosters />
-        </div>
-
-        {/* ═══════ PRE-WEDDING CELEBRATIONS — Location Section ═══════ */}
-        <div
-          className="w-full mt-12 mb-10 relative overflow-hidden py-16 flex flex-col items-center z-20 mx-4 sm:mx-8 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-gold/30"
-        >
-          {/* Generated Background Image */}
-          <div 
-            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${preWeddingBg})`, opacity: 0.95 }}
-          />
-          {/* Subtle gradient overlay to ensure text readability */}
-          <div className="absolute inset-0 z-0 bg-ivory/60" />
-          
-          <motion.div 
-            className="relative z-10 flex flex-col items-center w-full"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.15 } },
-            }}
-          >
-            {/* Top ornamental divider */}
-            <motion.div
-              className="flex items-center gap-3 w-full max-w-[260px] mb-8"
-              variants={{ hidden: { opacity: 0, scaleX: 0 }, visible: { opacity: 1, scaleX: 1 } }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+        {/* Lightbox / Zoom Overlay */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 z-[110] flex items-center justify-center bg-ink/95 p-4 backdrop-blur-md"
             >
-              <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-maroon/60 to-maroon/40"></div>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-maroon/70 shrink-0">
-                <path d="M12 2L14 8L20 8L15 12L17 18L12 14L7 18L9 12L4 8L10 8Z" fill="currentColor" />
-              </svg>
-              <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent via-maroon/60 to-maroon/40"></div>
-            </motion.div>
-
-            {/* Section heading */}
-            <motion.p
-              className="text-[10px] tracking-[0.3em] text-maroon/80 uppercase font-bold mb-2 text-center"
-              variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
-              transition={{ duration: 0.7 }}
-            >
-              Join Us For
-            </motion.p>
-
-            <motion.h3
-              className="font-serif-display text-xl sm:text-2xl tracking-[0.15em] uppercase text-center font-bold max-w-[90%] text-maroon"
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              transition={{ duration: 0.8 }}
-            >
-              Pre-Wedding<br className="sm:hidden" /> Celebrations
-            </motion.h3>
-
-            {/* Date & Time */}
-            <motion.div
-              className="mt-6 flex flex-col items-center"
-              variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
-              transition={{ duration: 0.7 }}
-            >
-              <p className="font-serif-display text-3xl sm:text-4xl text-maroon tracking-widest font-bold">23 · 11 · 2026</p>
-              <p className="text-[11px] sm:text-[12px] tracking-[0.2em] font-bold text-maroon uppercase mt-3">
-                <Clock size={11} className="inline -mt-0.5 mr-1.5 text-maroon/80" />
-                6 PM Onwards
-              </p>
-            </motion.div>
-
-            {/* Small ornament */}
-            <motion.div
-              className="my-7 flex items-center gap-3 w-full max-w-[180px]"
-              variants={{ hidden: { opacity: 0, scaleX: 0 }, visible: { opacity: 1, scaleX: 1 } }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="flex-1 h-[1px] bg-maroon/30"></div>
-              <div className="w-1.5 h-1.5 rotate-45 bg-maroon/50"></div>
-              <div className="flex-1 h-[1px] bg-maroon/30"></div>
-            </motion.div>
-
-            {/* Venue Name & Address */}
-            <motion.div
-              className="flex flex-col items-center text-center px-4"
-              variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
-              transition={{ duration: 0.7 }}
-            >
-              <p className="text-maroon font-serif-display font-bold text-xl sm:text-2xl tracking-wider">Royal Orchid Central</p>
-              <p className="text-maroon/80 font-bold text-[10px] sm:text-[11px] tracking-[0.15em] uppercase mt-3 max-w-[85%] leading-[2]">
-                47/1 Dickenson Road, Manipal Centre,<br />Bengaluru 560042
-              </p>
-            </motion.div>
-
-            {/* CTA Buttons */}
-            <motion.div
-              className="mt-8 flex flex-row flex-wrap items-center justify-center gap-3 px-4"
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              transition={{ duration: 0.7 }}
-            >
-              <button
-                onClick={() => setShowPreWeddingMapChoice(true)}
-                className="inline-flex items-center gap-2 rounded-full border border-gold bg-maroon/90 px-6 py-2.5 text-[10px] font-bold tracking-[0.2em] text-ivory uppercase hover:bg-maroon transition-all duration-300 shadow-md cursor-pointer"
+              <button 
+                onClick={() => setIsOpen(false)}
+                className="absolute top-6 right-6 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition backdrop-blur"
               >
-                <Navigation size={12} className="text-gold" />
-                Directions
+                <X size={20} />
               </button>
-              <button
-                onClick={() => setShowPreWeddingCalendarChoice(true)}
-                className="inline-flex items-center gap-2 rounded-full border border-gold bg-maroon/90 px-6 py-2.5 text-[10px] font-bold tracking-[0.2em] text-ivory uppercase hover:bg-maroon transition-all duration-300 shadow-md cursor-pointer"
+              
+              <motion.div 
+                initial={{ scale: 0.95 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.95 }}
+                className="relative max-h-[85vh] max-w-[95vw] sm:max-w-md overflow-hidden rounded-2xl bg-white p-2 shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
               >
-                <Calendar size={12} className="text-gold" />
-                Add to Calendar
-              </button>
-            </motion.div>
-            
-            {/* Bottom ornamental divider */}
-            <motion.div
-              className="flex items-center gap-3 w-full max-w-[260px] mt-10"
-              variants={{ hidden: { opacity: 0, scaleX: 0 }, visible: { opacity: 1, scaleX: 1 } }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-maroon/60 to-maroon/40"></div>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-maroon/70 shrink-0">
-                <path d="M12 2L14 8L20 8L15 12L17 18L12 14L7 18L9 12L4 8L10 8Z" fill="currentColor" />
-              </svg>
-              <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent via-maroon/60 to-maroon/40"></div>
-            </motion.div>
-          </motion.div>
-        </div>
-
-
-
-        {/* ═══════ THE WEDDING — Location Section ═══════ */}
-        <div
-          className="w-full mt-12 mb-6 relative overflow-hidden py-16 flex flex-col items-center z-20 mx-4 sm:mx-8 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-gold/30"
-        >
-          {/* Generated Background Image */}
-          <div 
-            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${weddingBg})`, opacity: 0.95 }}
-          />
-          {/* Subtle gradient overlay to ensure text readability */}
-          <div className="absolute inset-0 z-0 bg-ivory/60" />
-          
-          <motion.div 
-            className="relative z-10 flex flex-col items-center w-full"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.15 } },
-            }}
-          >
-            {/* Top ornamental divider */}
-            <motion.div
-              className="flex items-center gap-3 w-full max-w-[260px] mb-8"
-              variants={{ hidden: { opacity: 0, scaleX: 0 }, visible: { opacity: 1, scaleX: 1 } }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-maroon/60 to-maroon/40"></div>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-maroon/70 shrink-0">
-                <path d="M12 2L14 8L20 8L15 12L17 18L12 14L7 18L9 12L4 8L10 8Z" fill="currentColor" />
-              </svg>
-              <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent via-maroon/60 to-maroon/40"></div>
-            </motion.div>
-
-            {/* Section heading */}
-            <motion.p
-              className="text-[10px] tracking-[0.3em] text-maroon/80 uppercase font-bold mb-2"
-              variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
-              transition={{ duration: 0.7 }}
-            >
-              Join Us For
-            </motion.p>
-
-            <motion.h3
-              className="font-serif-display text-2xl sm:text-3xl tracking-[0.15em] uppercase text-center font-bold text-maroon"
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              transition={{ duration: 0.8 }}
-            >
-              The Wedding
-            </motion.h3>
-
-            {/* Date & Time */}
-            <motion.div
-              className="mt-6 flex flex-col items-center"
-              variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
-              transition={{ duration: 0.7 }}
-            >
-              <p className="font-serif-display text-3xl sm:text-4xl text-maroon tracking-widest font-bold">25 · 11 · 2026</p>
-              <p className="text-[11px] sm:text-[12px] tracking-[0.2em] font-bold text-maroon uppercase mt-3">
-                <Clock size={11} className="inline -mt-0.5 mr-1.5 text-maroon/80" />
-                7 PM Onwards
-              </p>
-            </motion.div>
-
-            {/* Small ornament */}
-            <motion.div
-              className="my-7 flex items-center gap-3 w-full max-w-[180px]"
-              variants={{ hidden: { opacity: 0, scaleX: 0 }, visible: { opacity: 1, scaleX: 1 } }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="flex-1 h-[1px] bg-maroon/30"></div>
-              <div className="w-1.5 h-1.5 rotate-45 bg-maroon/50"></div>
-              <div className="flex-1 h-[1px] bg-maroon/30"></div>
-            </motion.div>
-
-            {/* Venue Name & Address */}
-            <motion.div
-              className="flex flex-col items-center text-center px-4"
-              variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
-              transition={{ duration: 0.7 }}
-            >
-              <p className="text-maroon font-serif-display font-bold text-xl sm:text-2xl tracking-wider">The Ritz-Carlton</p>
-              <p className="text-maroon/80 font-bold text-[10px] sm:text-[11px] tracking-[0.15em] uppercase mt-3 max-w-[85%] leading-[2]">
-                No. 99 Residency Road,<br />Bengaluru 560025
-              </p>
-            </motion.div>
-
-
-            {/* CTA Buttons */}
-            <motion.div
-              className="mt-8 flex flex-row flex-wrap items-center justify-center gap-3 px-4"
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-              transition={{ duration: 0.7 }}
-            >
-              <button
-                onClick={() => setShowMapChoice(true)}
-                className="inline-flex items-center gap-2 rounded-full border border-gold bg-maroon/90 px-6 py-2.5 text-[10px] font-bold tracking-[0.2em] text-ivory uppercase hover:bg-maroon transition-all duration-300 shadow-md cursor-pointer"
-              >
-                <Navigation size={12} className="text-gold" />
-                Directions
-              </button>
-              <button
-                onClick={() => setShowCalendarChoice(true)}
-                className="inline-flex items-center gap-2 rounded-full border border-gold bg-maroon/90 px-6 py-2.5 text-[10px] font-bold tracking-[0.2em] text-ivory uppercase hover:bg-maroon transition-all duration-300 shadow-md cursor-pointer"
-              >
-                <Calendar size={12} className="text-gold" />
-                Add to Calendar
-              </button>
-            </motion.div>
-            
-            {/* Bottom ornamental divider */}
-            <motion.div
-              className="flex items-center gap-3 w-full max-w-[260px] mt-10"
-              variants={{ hidden: { opacity: 0, scaleX: 0 }, visible: { opacity: 1, scaleX: 1 } }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-maroon/60 to-maroon/40"></div>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-maroon/70 shrink-0">
-                <path d="M12 2L14 8L20 8L15 12L17 18L12 14L7 18L9 12L4 8L10 8Z" fill="currentColor" />
-              </svg>
-              <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent via-maroon/60 to-maroon/40"></div>
-            </motion.div>
-          </motion.div>
-        </div>
-
-          {/* Map Choice Bottom Sheet */}
-          <AnimatePresence>
-            {showMapChoice && (
-              <motion.div
-                className="fixed inset-0 z-[200] flex items-end justify-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25 }}
-              >
-                {/* Backdrop */}
-                <div
-                  className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-                  onClick={() => setShowMapChoice(false)}
+                <img 
+                  src={cardImg} 
+                  alt="Suhana & Midlaj Wedding Invitation Card" 
+                  className="max-h-[80vh] w-auto rounded-xl object-contain"
                 />
-                {/* Sheet */}
-                <motion.div
-                  className="relative w-full max-w-sm mx-4 mb-6 rounded-2xl overflow-hidden border border-gold/30 shadow-[0_-10px_40px_rgba(0,0,0,0.4)]"
-                  style={{ backgroundColor: '#3A0A12' }}
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: 100, opacity: 0 }}
-                  transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-                >
-                  {/* Handle */}
-                  <div className="flex justify-center pt-3 pb-1">
-                    <div className="w-8 h-1 rounded-full bg-gold/30"></div>
-                  </div>
-
-                  <p className="text-center text-[10px] tracking-[0.25em] text-gold/80 uppercase font-semibold pt-3 pb-4">
-                    Choose Your Map
-                  </p>
-
-                  <div className="flex flex-col gap-2 px-5 pb-5">
-                    <a
-                      href={WEDDING_MAP_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={() => setShowMapChoice(false)}
-                      className="flex items-center justify-center gap-2.5 w-full py-3 rounded-xl border border-gold/30 bg-gold/10 text-gold text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-gold hover:text-maroon transition-all duration-300"
-                    >
-                      Google Maps
-                    </a>
-                    <a
-                      href={WEDDING_APPLE_MAPS_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={() => setShowMapChoice(false)}
-                      className="flex items-center justify-center gap-2.5 w-full py-3 rounded-xl border border-gold/30 bg-gold/10 text-gold text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-gold hover:text-maroon transition-all duration-300"
-                    >
-                      Apple Maps
-                    </a>
-                  </div>
-
-                  <button
-                    onClick={() => setShowMapChoice(false)}
-                    className="w-full py-3 text-[10px] tracking-[0.2em] text-ivory/40 uppercase font-semibold hover:text-ivory/70 transition-colors border-t border-gold/15"
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
+                  <a 
+                    href={cardImg} 
+                    download="Suhana-Midlaj-Wedding-Invitation-Card.jpeg"
+                    className="flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-[10px] font-semibold tracking-luxury text-white uppercase shadow-md transition hover:bg-gold-soft"
                   >
-                    Cancel
-                  </button>
-                </motion.div>
+                    <Download size={12} /> Download Card
+                  </a>
+                </div>
               </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Pre-Wedding Map Choice Bottom Sheet */}
-          <AnimatePresence>
-            {showPreWeddingMapChoice && (
-              <motion.div
-                className="fixed inset-0 z-[200] flex items-end justify-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25 }}
-              >
-                <div
-                  className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-                  onClick={() => setShowPreWeddingMapChoice(false)}
-                />
-                <motion.div
-                  className="relative w-full max-w-sm mx-4 mb-6 rounded-2xl overflow-hidden border border-gold/30 shadow-[0_-10px_40px_rgba(0,0,0,0.4)]"
-                  style={{ backgroundColor: '#3A0A12' }}
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: 100, opacity: 0 }}
-                  transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-                >
-                  <div className="flex justify-center pt-3 pb-1">
-                    <div className="w-8 h-1 rounded-full bg-gold/30"></div>
-                  </div>
-
-                  <p className="text-center text-[10px] tracking-[0.25em] text-gold/80 uppercase font-semibold pt-3 pb-4">
-                    Choose Your Map
-                  </p>
-
-                  <div className="flex flex-col gap-2 px-5 pb-5">
-                    <a
-                      href={MAP_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={() => setShowPreWeddingMapChoice(false)}
-                      className="flex items-center justify-center gap-2.5 w-full py-3 rounded-xl border border-gold/30 bg-gold/10 text-gold text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-gold hover:text-maroon transition-all duration-300"
-                    >
-                      Google Maps
-                    </a>
-                    <a
-                      href={PRE_WEDDING_APPLE_MAPS_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={() => setShowPreWeddingMapChoice(false)}
-                      className="flex items-center justify-center gap-2.5 w-full py-3 rounded-xl border border-gold/30 bg-gold/10 text-gold text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-gold hover:text-maroon transition-all duration-300"
-                    >
-                      Apple Maps
-                    </a>
-                  </div>
-
-                  <button
-                    onClick={() => setShowPreWeddingMapChoice(false)}
-                    className="w-full py-3 text-[10px] tracking-[0.2em] text-ivory/40 uppercase font-semibold hover:text-ivory/70 transition-colors border-t border-gold/15"
-                  >
-                    Cancel
-                  </button>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Map Choice Bottom Sheet - Wedding */}
-          <AnimatePresence>
-            {showCalendarChoice && (
-              <motion.div
-                className="fixed inset-0 z-[200] flex items-end justify-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25 }}
-              >
-                {/* Backdrop */}
-                <div
-                  className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-                  onClick={() => setShowCalendarChoice(false)}
-                />
-                {/* Sheet */}
-                <motion.div
-                  className="relative w-full max-w-sm mx-4 mb-6 rounded-2xl overflow-hidden border border-gold/30 shadow-[0_-10px_40px_rgba(0,0,0,0.4)]"
-                  style={{ backgroundColor: '#3A0A12' }}
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: 100, opacity: 0 }}
-                  transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-                >
-                  <div className="flex justify-center pt-3 pb-1">
-                    <div className="w-8 h-1 rounded-full bg-gold/30"></div>
-                  </div>
-
-                  <p className="text-center text-[10px] tracking-[0.25em] text-gold/80 uppercase font-semibold pt-3 pb-4">
-                    Choose Calendar
-                  </p>
-
-                  <div className="flex flex-col gap-2 px-5 pb-5">
-                    <a
-                      href={GOOGLE_CALENDAR_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={() => setShowCalendarChoice(false)}
-                      className="flex items-center justify-center gap-2.5 w-full py-3 rounded-xl border border-gold/30 bg-gold/10 text-gold text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-gold hover:text-maroon transition-all duration-300"
-                    >
-                      <Calendar size={14} />
-                      Google Calendar
-                    </a>
-                    <a
-                      href={APPLE_CALENDAR_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                      download="wedding_shreyasi_purushottam.ics"
-                      onClick={() => setShowCalendarChoice(false)}
-                      className="flex items-center justify-center gap-2.5 w-full py-3 rounded-xl border border-gold/30 bg-gold/10 text-gold text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-gold hover:text-maroon transition-all duration-300"
-                    >
-                      <Calendar size={14} />
-                      Apple Calendar
-                    </a>
-                  </div>
-
-                  <button
-                    onClick={() => setShowCalendarChoice(false)}
-                    className="w-full py-3 text-[10px] tracking-[0.2em] text-ivory/40 uppercase font-semibold hover:text-ivory/70 transition-colors border-t border-gold/15"
-                  >
-                    Cancel
-                  </button>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Pre-Wedding Calendar Choice Bottom Sheet */}
-          <AnimatePresence>
-            {showPreWeddingCalendarChoice && (
-              <motion.div
-                className="fixed inset-0 z-[200] flex items-end justify-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25 }}
-              >
-                <div
-                  className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-                  onClick={() => setShowPreWeddingCalendarChoice(false)}
-                />
-                <motion.div
-                  className="relative w-full max-w-sm mx-4 mb-6 rounded-2xl overflow-hidden border border-gold/30 shadow-[0_-10px_40px_rgba(0,0,0,0.4)]"
-                  style={{ backgroundColor: '#3A0A12' }}
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: 100, opacity: 0 }}
-                  transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-                >
-                  <div className="flex justify-center pt-3 pb-1">
-                    <div className="w-8 h-1 rounded-full bg-gold/30"></div>
-                  </div>
-
-                  <p className="text-center text-[10px] tracking-[0.25em] text-gold/80 uppercase font-semibold pt-3 pb-4">
-                    Choose Calendar
-                  </p>
-
-                  <div className="flex flex-col gap-2 px-5 pb-5">
-                    <a
-                      href={PRE_WEDDING_GOOGLE_CALENDAR_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={() => setShowPreWeddingCalendarChoice(false)}
-                      className="flex items-center justify-center gap-2.5 w-full py-3 rounded-xl border border-gold/30 bg-gold/10 text-gold text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-gold hover:text-maroon transition-all duration-300"
-                    >
-                      <Calendar size={14} />
-                      Google Calendar
-                    </a>
-                    <a
-                      href={PRE_WEDDING_APPLE_CALENDAR_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                      download="pre_wedding_shreyasi_purushottam.ics"
-                      onClick={() => setShowPreWeddingCalendarChoice(false)}
-                      className="flex items-center justify-center gap-2.5 w-full py-3 rounded-xl border border-gold/30 bg-gold/10 text-gold text-[11px] font-bold tracking-[0.15em] uppercase hover:bg-gold hover:text-maroon transition-all duration-300"
-                    >
-                      <Calendar size={14} />
-                      Apple Calendar
-                    </a>
-                  </div>
-
-                  <button
-                    onClick={() => setShowPreWeddingCalendarChoice(false)}
-                    className="w-full py-3 text-[10px] tracking-[0.2em] text-ivory/40 uppercase font-semibold hover:text-ivory/70 transition-colors border-t border-gold/15"
-                  >
-                    Cancel
-                  </button>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Bottom ornamental divider */}
-          <motion.div
-            className="flex items-center gap-3 w-full max-w-[260px] mt-10"
-            variants={{ hidden: { opacity: 0, scaleX: 0 }, visible: { opacity: 1, scaleX: 1 } }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-gold/60 to-gold/40"></div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-gold/70 shrink-0">
-              <path d="M12 2L14 8L20 8L15 12L17 18L12 14L7 18L9 12L4 8L10 8Z" fill="currentColor" />
-            </svg>
-            <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent via-gold/60 to-gold/40"></div>
-          </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Reveal>
-      </div>
     </Section>
   );
 }
 
-
-
 /* ---------------- Countdown ---------------- */
 function CountdownSection() {
   return (
-    <Section id="countdown" className="flex flex-col items-center justify-center py-10 sm:py-12 relative overflow-hidden">
+    <Section id="countdown" className="bg-[#FDFBF7] flex flex-col items-center justify-center py-10 sm:py-12 relative overflow-hidden">
       <Reveal className="text-center w-full z-10">
         <Ornament className="mb-4 rotate-180" />
         <SectionLabel>Counting Down</SectionLabel>
@@ -1067,24 +493,24 @@ function CountdownSection() {
               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
             </svg>
           </div>
-          <p className="font-serif italic text-ivory/90 text-[14px] sm:text-[15px] leading-relaxed max-w-md mx-auto mt-4 px-6 text-center">
+          <p className="font-serif italic text-ink/90 text-[14px] sm:text-[15px] leading-relaxed max-w-md mx-auto mt-4 px-6 text-center">
             You have played a beautiful part in our love story. Now we invite you to be there as we write the most important chapter yet.
           </p>
 
           <div className="mt-8">
-            <h4 className="font-serif-display text-lg sm:text-xl text-ivory font-semibold">
+            <h4 className="font-serif-display text-lg sm:text-xl text-ink font-semibold">
               Mr. N. P. Shuhaib &amp; Mrs. K. V. Asmabi
             </h4>
-            <p className="text-[9px] tracking-widest text-gold-soft uppercase mt-4 max-w-xs mx-auto leading-loose">
+            <p className="text-[9px] tracking-widest text-muted-foreground uppercase mt-4 max-w-xs mx-auto leading-loose">
               Request the pleasure of your presence and prayers at the
             </p>
             <h3 className="font-script text-4xl text-gold mt-4 mb-2">Wedding</h3>
-            <p className="text-[9px] tracking-widest text-gold-soft uppercase mb-6">
+            <p className="text-[9px] tracking-widest text-muted-foreground uppercase mb-6">
               Of their beloved daughter
             </p>
 
-            <h4 className="font-serif-display text-2xl sm:text-3xl text-ivory uppercase tracking-wide">
-              Shreyasi
+            <h4 className="font-serif-display text-2xl sm:text-3xl text-ink uppercase tracking-wide">
+              Dr. Suhana Suaibu
             </h4>
             
             <div className="my-4 text-gold/40 flex items-center justify-center gap-4">
@@ -1093,8 +519,8 @@ function CountdownSection() {
               <div className="h-[1px] w-12 bg-gold/40"></div>
             </div>
 
-            <h4 className="font-serif-display text-2xl sm:text-3xl text-ivory uppercase tracking-wide">
-              Purushottam
+            <h4 className="font-serif-display text-2xl sm:text-3xl text-ink uppercase tracking-wide">
+              Mohammed Midlaj
             </h4>
             <p className="font-serif italic text-[11px] sm:text-xs text-muted-foreground mt-3">
               S/o V. Imbichi Mammu and Fousiya PM
@@ -1115,13 +541,13 @@ function AddToCalendarButton() {
     const icsContent = [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
-      "PRODID:-//Shreyasi & Purushottam Wedding//EN",
+      "PRODID:-//Suhana & Midlaj Wedding//EN",
       "BEGIN:VEVENT",
-      "UID:shreyasi-purushottam-wedding-2026@shuhaz",
+      "UID:suhana-midlaj-wedding-2026@shuhaz",
       "DTSTART:20260809T073000Z",
       "DTEND:20260809T093000Z",
-      "SUMMARY:Shreyasi & Purushottam Wedding",
-      "DESCRIPTION:The family invites you to the wedding of Shreyasi & Purushottam",
+      "SUMMARY:Suhana & Midlaj Wedding",
+      "DESCRIPTION:The family invites you to the wedding of Dr. Suhana Suaibu & Midlaj",
       "LOCATION:Shasa\\, Behind Crystal Plaza\\, Arakkinar",
       "STATUS:CONFIRMED",
       "END:VEVENT",
@@ -1132,7 +558,7 @@ function AddToCalendarButton() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "shreyasi-purushottam-wedding.ics";
+    link.download = "suhana-midlaj-wedding.ics";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -1153,11 +579,11 @@ function AddToCalendarButton() {
 
 function EventSection() {
   return (
-    <section className="relative flex items-center justify-center py-12 sm:py-16 overflow-hidden" id="event">
+    <section className="relative flex items-center justify-center py-12 sm:py-16 overflow-hidden bg-[#FDFBF7]" id="event">
 
       <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className="relative z-10 px-6 text-center w-full max-w-md mx-auto flex flex-col items-center">
         <div className="mb-8 sm:mb-12">
-          <span className="rounded-sm border border-gold/40 px-5 py-2 text-[9px] font-semibold tracking-[0.3em] text-gold-soft uppercase bg-maroon-deep/60 backdrop-blur-sm">
+          <span className="rounded-sm border border-gold/20 px-5 py-2 text-[9px] font-semibold tracking-[0.3em] text-ink/70 uppercase bg-[#FDFBF7]/60 backdrop-blur-sm">
             Wedding
           </span>
         </div>
@@ -1166,7 +592,7 @@ function EventSection() {
           SUNDAY
         </h4>
         <h3 className="font-serif-display text-xl sm:text-2xl text-gold mt-2 tracking-wider">
-          9 NOVEMBER 2026 1:00 PM - 3:00 PM
+          9 AUGUST 2026 1:00 PM - 3:00 PM
         </h3>
 
         <div className="my-6 text-gold/30 flex items-center justify-center gap-4">
@@ -1205,7 +631,7 @@ function EventSection() {
 /* ---------------- Venue ---------------- */
 function VenueSection() {
   return (
-    <Section id="venue" className="">
+    <Section id="venue" className="bg-[#FDFBF7]">
       <Reveal className="text-center w-full">
         <SectionLabel>FIND US</SectionLabel>
         <h3 className="mt-4 font-serif-display text-2xl font-light text-ink uppercase tracking-wide">
@@ -1217,17 +643,17 @@ function VenueSection() {
       </Reveal>
 
       <Reveal delay={0.15} className="mt-8">
-        <div className="relative mx-auto max-w-sm rounded-[1.5rem] bg-maroon-deep overflow-hidden shadow-luxury h-64 border border-gold/30">
+        <div className="relative mx-auto max-w-sm rounded-[1.5rem] bg-[#EBE7DF] overflow-hidden shadow-sm h-64 border border-gold/10">
           {/* Mock stylized map graphics */}
           <div className="absolute top-4 left-4 right-4 h-12 flex gap-4">
-            <div className="w-1/3 bg-maroon/50 rounded-lg"></div>
+            <div className="w-1/3 bg-[#DCD8CD] rounded-lg"></div>
             <div className="w-2/3 flex flex-col gap-2">
-              <div className="w-full h-4 bg-maroon/30 rounded-full"></div>
-              <div className="w-2/3 h-4 bg-maroon/30 rounded-full"></div>
+              <div className="w-full h-4 bg-[#F5F2EB] rounded-full"></div>
+              <div className="w-2/3 h-4 bg-[#F5F2EB] rounded-full"></div>
             </div>
           </div>
-          <div className="absolute top-20 left-0 right-0 h-4 bg-maroon/30"></div>
-          <div className="absolute top-28 left-1/3 w-4 h-full bg-maroon/30"></div>
+          <div className="absolute top-20 left-0 right-0 h-4 bg-[#F5F2EB]"></div>
+          <div className="absolute top-28 left-1/3 w-4 h-full bg-[#F5F2EB]"></div>
           
           <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
              <div className="w-10 h-10 rounded-full border-2 border-gold/40 absolute scale-150"></div>
@@ -1236,10 +662,10 @@ function VenueSection() {
              </div>
           </div>
 
-          <div className="absolute bottom-4 left-4 right-4 bg-printed-card p-4 rounded-xl shadow-luxury flex items-center justify-between border border-gold/40">
+          <div className="absolute bottom-4 left-4 right-4 bg-white p-4 rounded-xl shadow-luxury flex items-center justify-between border border-gold/10">
              <div>
-               <h4 className="font-bold text-[11px] text-maroon-deep">Shasa</h4>
-               <p className="text-[8px] text-maroon-deep/70 mt-1 line-clamp-1">Behind Crystal Plaza, Arakkinar</p>
+               <h4 className="font-bold text-[11px] text-ink">Shasa</h4>
+               <p className="text-[8px] text-muted-foreground mt-1 line-clamp-1">Behind Crystal Plaza, Arakkinar</p>
              </div>
              <a
               href={MAP_URL}
@@ -1264,7 +690,7 @@ function GallerySection() {
     <Section id="gallery">
       <Reveal className="text-center">
         <SectionLabel>Moments</SectionLabel>
-        <h3 className="mt-4 font-serif-display text-3xl font-light text-ivory sm:text-5xl">
+        <h3 className="mt-4 font-serif-display text-3xl font-light text-ink sm:text-5xl">
           Their story in frames
         </h3>
       </Reveal>
@@ -1275,15 +701,94 @@ function GallerySection() {
   );
 }
 
-
-
-/* ---------------- RSVP ---------------- */
-function RsvpSection() {
+/* ---------------- Blessing ---------------- */
+function Blessing() {
   return (
-    <Section id="rsvp" className="flex flex-col items-center justify-center relative z-20 pt-8 pb-16">
-      <RsvpForm />
+    <Section id="blessing" className="text-center">
+      <Reveal>
+        <Ornament />
+        <p className="mx-auto mt-10 max-w-2xl font-serif-display text-2xl leading-relaxed font-light text-ink italic sm:text-4xl">
+          "Your presence and prayers will be a blessing as they begin their beautiful journey
+          together."
+        </p>
+        <Ornament className="mt-10" />
+      </Reveal>
     </Section>
   );
 }
 
+/* ---------------- Family ---------------- */
+function FamilySection() {
+  return (
+    <Section id="family">
+      <Reveal className="text-center">
+        <SectionLabel>With Love From</SectionLabel>
+        <h3 className="mt-4 font-serif-display text-3xl font-light text-ink sm:text-5xl">
+          Shasa Family
+        </h3>
+      </Reveal>
+      <Reveal delay={0.1} className="mt-12">
+        <div className="flex flex-wrap justify-center gap-3">
+          {family.map((name, i) => (
+            <motion.span
+              key={name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.04, duration: 0.6 }}
+              className="glass rounded-full px-5 py-2.5 font-serif-display text-sm text-ink sm:text-base"
+            >
+              {name}
+            </motion.span>
+          ))}
+        </div>
+      </Reveal>
+    </Section>
+  );
+}
 
+/* ---------------- RSVP ---------------- */
+function RsvpSection() {
+  return (
+    <Section id="rsvp">
+      <Reveal className="text-center">
+        <SectionLabel>RSVP</SectionLabel>
+        <h3 className="mt-4 font-serif-display text-3xl font-light text-ink sm:text-5xl">
+          Kindly share your blessing
+        </h3>
+        <p className="mt-4 text-sm text-muted-foreground">Please respond at your earliest convenience.</p>
+      </Reveal>
+      <Reveal delay={0.1} className="mt-12">
+        <RsvpForm />
+      </Reveal>
+    </Section>
+  );
+}
+
+/* ---------------- Footer ---------------- */
+function Footer() {
+  return (
+    <footer className="relative overflow-hidden px-6 pt-24 pb-16 text-center">
+      <img
+        src={floralTL}
+        alt=""
+        className="pointer-events-none absolute -bottom-16 -left-16 w-[45vw] max-w-[480px] rotate-180 opacity-80 sm:w-[28vw]"
+        loading="lazy"
+      />
+      <img
+        src={floralBR}
+        alt=""
+        className="pointer-events-none absolute -right-16 -bottom-16 w-[50vw] max-w-[520px] opacity-80 sm:w-[30vw]"
+        loading="lazy"
+      />
+      <Reveal className="relative z-10">
+        <Ornament />
+        <p className="mt-8 font-script text-4xl text-gold-gradient sm:text-5xl">With Love,</p>
+        <p className="mt-4 font-serif-display text-2xl text-ink sm:text-3xl">Shasa Family</p>
+        <p className="mt-10 text-[10px] tracking-luxury text-muted-foreground uppercase">
+          Suhana &amp; Midlaj · 09 · 08 · 2026
+        </p>
+      </Reveal>
+    </footer>
+  );
+}

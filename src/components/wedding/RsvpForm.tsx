@@ -1,251 +1,138 @@
 import { useState, type FormEvent } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Sparkles, Minus, Plus } from "lucide-react";
 import { Reveal } from "./Reveal";
+import { User, Users } from "lucide-react";
+import Confetti from "react-confetti";
+import { useWindowSize } from "react-use";
 
 export function RsvpForm() {
-  const [selection, setSelection] = useState<"yes" | "no" | null>(null);
+  const [attending, setAttending] = useState<"yes" | "no">("yes");
   const [submitted, setSubmitted] = useState(false);
-  const [guests, setGuests] = useState(1);
-  const [name, setName] = useState("");
-  const [message, setMessage] = useState("");
+  const { width, height } = useWindowSize();
 
-  const resetForm = () => {
-    setSelection(null);
-    setSubmitted(false);
-    setGuests(1);
-    setName("");
-    setMessage("");
-  };
-
-  const handleGuestChange = (change: number) => {
-    setGuests((prev) => Math.max(1, Math.min(10, prev + change)));
-  };
-
-  const handleSubmit = (e: FormEvent) => {
+  function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const rsvp = {
+      name: String(fd.get("name") ?? ""),
+      guests: String(fd.get("guests") ?? "1"),
+      attending,
+      ts: Date.now(),
+    };
+    try {
+      const prev = JSON.parse(localStorage.getItem("rsvps") ?? "[]");
+      localStorage.setItem("rsvps", JSON.stringify([...prev, rsvp]));
+    } catch {
+      // ignore
+    }
     setSubmitted(true);
-  };
+  }
+
+  if (submitted) {
+    return (
+      <>
+        {attending === "yes" && (
+          <Confetti
+            width={width}
+            height={height}
+            recycle={false}
+            numberOfPieces={400}
+            gravity={0.15}
+            colors={['#D4AF37', '#F3E5AB', '#ffffff']}
+            style={{ position: 'fixed', top: 0, left: 0, zIndex: 100 }}
+          />
+        )}
+        <Reveal className="relative mx-auto max-w-sm overflow-hidden rounded-3xl border border-gold/15 bg-white/60 p-10 text-center backdrop-blur-md shadow-luxury">
+          <div className="absolute inset-3 pointer-events-none rounded-[1.25rem] border border-gold/10" />
+          <div className="font-script text-5xl text-gold-gradient py-1">Thank you</div>
+          <p className="mt-4 text-xs text-muted-foreground leading-relaxed">
+            {attending === "yes" 
+              ? "Your response has been recorded. We look forward to sharing this blessed day with you."
+              : "Thank you for letting us know. You will be missed!"}
+          </p>
+        </Reveal>
+      </>
+    );
+  }
 
   return (
-    <div className="w-full max-w-lg mx-auto flex flex-col items-center text-center px-4">
-      {/* Top Ornamental Divider */}
-      <motion.div
-        className="flex items-center gap-3 w-full max-w-[200px] mb-8"
-        initial={{ opacity: 0, scaleX: 0 }}
-        whileInView={{ opacity: 1, scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-gold/60 to-gold/40"></div>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="text-gold/70 shrink-0">
-          <path d="M12 2L14 8L20 8L15 12L17 18L12 14L7 18L9 12L4 8L10 8Z" fill="currentColor" />
-        </svg>
-        <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent via-gold/60 to-gold/40"></div>
-      </motion.div>
+    <form onSubmit={submit} className="relative mx-auto grid max-w-sm gap-6 rounded-3xl border border-gold/15 bg-white/60 p-8 text-center backdrop-blur-md shadow-luxury">
+      {/* Delicate inner decorative border */}
+      <div className="absolute inset-3 pointer-events-none rounded-[1.25rem] border border-gold/10" />
+      
+      {/* Subtle gold corner accent ornaments */}
+      <div className="absolute top-4 left-4 h-3 w-3 border-t border-l border-gold/30" />
+      <div className="absolute top-4 right-4 h-3 w-3 border-t border-r border-gold/30" />
+      <div className="absolute bottom-4 left-4 h-3 w-3 border-b border-l border-gold/30" />
+      <div className="absolute bottom-4 right-4 h-3 w-3 border-b border-r border-gold/30" />
 
-      <Reveal>
-        <h2 className="font-serif-display text-3xl sm:text-4xl tracking-[0.15em] uppercase text-gold font-bold mb-4">
-          Kindly RSVP
-        </h2>
-        <p className="text-sm sm:text-base text-ivory/80 max-w-xs mx-auto mb-10 leading-relaxed font-serif italic">
-          Your presence would make our celebration even more special.
-        </p>
-      </Reveal>
-
-      <AnimatePresence mode="wait">
-        {!submitted ? (
-          <motion.div
-            key="form"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.4 }}
-            className="w-full flex flex-col items-center"
-          >
-            <p className="text-[10px] tracking-[0.25em] text-gold uppercase font-bold mb-6">
-              Will you be joining us?
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 w-full justify-center mb-8">
+      <div className="relative z-10 grid gap-6 text-left">
+        <Field label="Name" name="name" icon={<User size={13} />} required />
+        
+        <div>
+          <div className="mb-4 text-[10px] tracking-luxury text-gold uppercase font-medium">
+            Will you attend?
+          </div>
+          <div className="grid grid-cols-2 gap-3.5">
+            {(["yes", "no"] as const).map((v) => (
               <button
-                onClick={() => setSelection("yes")}
-                className={`px-6 py-3.5 rounded-full border text-[11px] font-bold tracking-[0.15em] uppercase transition-all duration-300 shadow-md ${
-                  selection === "yes"
-                    ? "border-gold bg-gold text-maroon shadow-gold/20"
-                    : "border-gold/40 bg-maroon text-ivory hover:border-gold hover:bg-maroon-deep"
+                type="button"
+                key={v}
+                onClick={() => setAttending(v)}
+                className={`rounded-full border px-3 py-3 text-[9px] font-semibold tracking-luxury uppercase transition duration-300 ${
+                  attending === v
+                    ? "border-gold bg-gold/10 text-gold shadow-sm"
+                    : "border-gold/20 bg-white/20 text-muted-foreground hover:border-gold/45 hover:text-gold"
                 }`}
               >
-                Yes, I'll be there 🥰
+                {v === "yes" ? "Joyfully Attend" : "Decline"}
               </button>
-              <button
-                onClick={() => setSelection("no")}
-                className={`px-6 py-3.5 rounded-full border text-[11px] font-bold tracking-[0.15em] uppercase transition-all duration-300 shadow-md ${
-                  selection === "no"
-                    ? "border-gold bg-gold text-maroon shadow-gold/20"
-                    : "border-gold/40 bg-maroon text-ivory hover:border-gold hover:bg-maroon-deep"
-                }`}
-              >
-                Sorry, can't make it 🙁
-              </button>
-            </div>
+            ))}
+          </div>
+        </div>
 
-            <AnimatePresence>
-              {selection && (
-                <motion.form
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                  onSubmit={handleSubmit}
-                  className="w-full max-w-sm flex flex-col gap-6 overflow-hidden"
-                >
-                  {selection === "yes" && (
-                    <>
-                      {/* Name Field */}
-                      <div className="flex flex-col text-left">
-                        <label className="text-[10px] tracking-[0.2em] text-gold/80 uppercase font-bold mb-2 ml-1">
-                          Your Name
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          placeholder="Enter your name"
-                          className="w-full bg-transparent border-b border-gold/40 px-2 py-2 text-ivory placeholder-ivory/30 focus:outline-none focus:border-gold transition-colors text-sm"
-                        />
-                      </div>
-
-                      {/* Number of Guests */}
-                      <div className="flex flex-col text-left">
-                        <label className="text-[10px] tracking-[0.2em] text-gold/80 uppercase font-bold mb-3 ml-1">
-                          Number of Guests
-                        </label>
-                        <div className="flex items-center justify-between border border-gold/40 rounded-full px-4 py-2 w-32 bg-maroon-deep">
-                          <button
-                            type="button"
-                            onClick={() => handleGuestChange(-1)}
-                            className="text-gold hover:text-ivory transition-colors p-1"
-                          >
-                            <Minus size={14} />
-                          </button>
-                          <span className="text-ivory font-semibold text-sm">{guests}</span>
-                          <button
-                            type="button"
-                            onClick={() => handleGuestChange(1)}
-                            className="text-gold hover:text-ivory transition-colors p-1"
-                          >
-                            <Plus size={14} />
-                          </button>
-                        </div>
-                      </div>
-                    </>
-                  )}
-
-                  {/* Optional Message Field */}
-                  <div className="flex flex-col text-left">
-                    <label className="text-[10px] tracking-[0.2em] text-gold/80 uppercase font-bold mb-2 ml-1">
-                      Optional Message
-                    </label>
-                    <textarea
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      placeholder="Leave a message"
-                      rows={2}
-                      className="w-full bg-transparent border-b border-gold/40 px-2 py-2 text-ivory placeholder-ivory/30 focus:outline-none focus:border-gold transition-colors text-sm resize-none"
-                    />
-                  </div>
-
-                  {/* Submit Button */}
-                  <div className="mt-4 mb-2 flex justify-center">
-                    <button
-                      type="submit"
-                      className="inline-flex items-center justify-center rounded-full bg-gold px-8 py-3.5 text-[11px] font-bold tracking-[0.2em] text-maroon uppercase shadow-lg shadow-gold/10 hover:bg-gold-soft hover:-translate-y-0.5 transition-all duration-300 w-full sm:w-auto"
-                    >
-                      {selection === "yes" ? "Confirm RSVP" : "Send"}
-                    </button>
-                  </div>
-                </motion.form>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="success"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="w-full flex flex-col items-center py-6"
-          >
-            {selection === "yes" ? (
-              <>
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1, rotate: [0, 10, -10, 0] }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                  className="mb-4 text-gold"
-                >
-                  <Sparkles size={32} />
-                </motion.div>
-                <h3 className="font-serif-display text-2xl sm:text-3xl text-gold font-bold mb-4 uppercase tracking-[0.1em]">
-                  Thank You! 🥰
-                </h3>
-                <p className="text-ivory/90 font-serif italic text-sm sm:text-base max-w-sm mb-8 leading-relaxed">
-                  We’re so happy to have you with us!
-                  <br /><br />
-                  Your presence will make our celebration<br />even more special.
-                  <br /><br />
-                  Can’t wait to celebrate together! ✨
-                </p>
-              </>
-            ) : (
-              <>
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 0.8, type: "spring" }}
-                  className="mb-4 text-gold/80"
-                >
-                  <Heart size={28} fill="currentColor" className="opacity-80" />
-                </motion.div>
-                <h3 className="font-serif-display text-2xl sm:text-3xl text-gold/90 font-bold mb-4 uppercase tracking-[0.1em]">
-                  We'll miss you! 🙁
-                </h3>
-                <p className="text-ivory/80 font-serif italic text-sm sm:text-base max-w-sm mb-8 leading-relaxed">
-                  We’re sorry you won’t be able to join us.
-                  <br /><br />
-                  Your love and blessings will always be<br />special to us. ❤️
-                  <br /><br />
-                  Sending you our warmest wishes!
-                </p>
-              </>
-            )}
-
-            <button
-              onClick={resetForm}
-              className="mt-2 text-[10px] tracking-[0.2em] font-bold text-gold uppercase hover:text-ivory transition-colors border-b border-gold/30 hover:border-ivory pb-1"
-            >
-              Back to Invitation
-            </button>
-          </motion.div>
+        {attending === "yes" && (
+          <Field label="Number of Guests" name="guests" type="number" defaultValue="1" min="1" icon={<Users size={13} />} />
         )}
-      </AnimatePresence>
-
-      {/* Bottom Ornamental Divider */}
-      <motion.div
-        className="flex items-center gap-3 w-full max-w-[200px] mt-16"
-        initial={{ opacity: 0, scaleX: 0 }}
-        whileInView={{ opacity: 1, scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
+      </div>
+      
+      <button
+        type="submit"
+        className="relative z-10 mt-2 overflow-hidden rounded-full bg-gradient-to-r from-gold to-gold-soft px-8 py-4 text-xs font-semibold tracking-luxury text-white uppercase shadow-soft transition-all duration-300 hover:shadow-luxury hover:-translate-y-0.5"
       >
-        <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-gold/60 to-gold/40"></div>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="text-gold/70 shrink-0">
-          <path d="M12 2L14 8L20 8L15 12L17 18L12 14L7 18L9 12L4 8L10 8Z" fill="currentColor" />
-        </svg>
-        <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent via-gold/60 to-gold/40"></div>
-      </motion.div>
+        Send Blessing
+      </button>
+    </form>
+  );
+}
+
+function Field({
+  label,
+  name,
+  type = "text",
+  icon,
+  ...rest
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  icon: React.ReactNode;
+} & React.InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <div>
+      <label className="mb-2 block text-[10px] tracking-luxury text-gold uppercase font-medium">
+        {label}
+      </label>
+      <div className="relative flex items-center">
+        <span className="absolute left-0 text-gold/60 pb-1">
+          {icon}
+        </span>
+        <input
+          name={name}
+          type={type}
+          className="w-full border-b border-gold/20 bg-transparent pl-6 pr-1 py-1 text-sm text-ink outline-none transition-all duration-300 focus:border-gold focus:bg-gold/[0.02]"
+          {...rest}
+        />
+      </div>
     </div>
   );
 }
